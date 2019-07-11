@@ -5,15 +5,15 @@ checkout-payment-gateway coding exercise
 
 Extra mile bonus points
 
-- [ ] Application logging
-- [ ] Application metrics
-- [ ] Containerization
-- [ ] Authentication
-- [ ] API client
-- [ ] Build script / CI
-- [ ] Performance testing
-- [ ] Encryption
-- [ ] Data storage
+- [ ] [Application logging](/docs/bonus-points.md#application-logging)
+- [ ] [Application metrics](/docs/bonus-points.md#application-metrics)
+- [ ] [Containerization](/docs/bonus-points.md#containerization)
+- [ ] [Authentication](/docs/bonus-points.md#authentication)
+- [ ] [API client](/docs/bonus-points.md#api-client)
+- [ ] [Build script / CI](/docs/bonus-points.md#build-script--ci)
+- [ ] [Performance testing](/docs/bonus-points.md#performance-testing)
+- [ ] [Encryption](/docs/bonus-points.md#encryption)
+- [ ] [Data storage](/docs/bonus-points.md#data-storage)
 
 ## TODO business work
 
