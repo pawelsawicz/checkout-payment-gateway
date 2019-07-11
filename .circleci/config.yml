@@ -8,13 +8,9 @@ jobs:
       - checkout
 
       - run:
-          name: Restore packages
-          command: dotnet restore
+          name: Restore & Build API
+          command: make build-project
 
       - run:
-          name: Build App
-          command: dotnet build
-          
-      - run:
           name: Run Tests
-          command: dotnet test
+          command: make run-tests
