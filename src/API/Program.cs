@@ -17,7 +17,7 @@ namespace API
         {
             Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
-                .MinimumLevel.Debug()
+                .MinimumLevel.Information()
                 .WriteTo.Console(
                     outputTemplate:
                     "{NewLine}{Timestamp:HH:mm:ss} [{Level}] ({CorrelationToken}) {Message}{NewLine}{Exception}")

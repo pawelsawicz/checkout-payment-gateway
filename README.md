@@ -23,7 +23,7 @@ and receive either a successful or successful response
     a real bank once we move into production
 2. A merchant should be able to retrieve the details of a previously made payment
 
-## TODO Non business work
+## TODO Platform / Infrastructure work
 
 - [x] Bootstrap projects `api`, `api.tests`
 - [ ] Bootstraping API
@@ -40,10 +40,14 @@ and receive either a successful or successful response
 - [ ] Add performance testing project
 - [ ] Add event store / database (?)
 - [ ] Add docker support
-    - [ ] Add dockerfile
+    - [x] Add dockerfile
     - [ ] Add docker-compose
+        - [x] Create docker-compose just for API
+        - [x] Create docker-compose with monitoring tools
     - [ ] Change type of the main from `void` to `int`, 
     better visibility over types of shutdown
+- [ ] Add CI configuration (Circle CI)
+    - [ ] Create Makefile (build script)
     
 ### Improvments
 
@@ -54,3 +58,9 @@ and receive either a successful or successful response
 ### Documentation work
 
 - [ ] Create infrastructure diagram
+
+
+
+### Infrasturcture diagram
+
+![Infrasturcture diagram](/docs/infrastructure-architecture.png)

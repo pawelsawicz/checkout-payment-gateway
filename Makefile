@@ -21,6 +21,22 @@ run-locally:
 run-container-locally: build
 	docker run -d payment-gateway-api .
 	
+## Docker compose development
+
+compose-api-clean:
+	docker-compose -f docker-compose.yml down -v --remove-orphans
+
+compose-api: compose-api-clean
+	docker-compose -f docker-compose.yml up --force-recreate -d
+	
+## Docker compose development - prometheus + grafana
+
+compose-with-monitoring-clean:
+	docker-compose -f docker-compose-with-monitoring.yml down -v --remove-orphans
+
+compose-with-monitoring: compose-with-monitoring-clean
+	docker-compose -f docker-compose-with-monitoring.yml up --force-recreate
+	
 ## Used by CI
 
 build-project:
