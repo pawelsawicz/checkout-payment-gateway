@@ -30,10 +30,9 @@ and receive either a successful or successful response
     - [ ] Add ASP.NET Framework
         - [ ] Drive Kestrel configuration via config file
         - [ ] IoC (?)
-    - [ ] Add Serilog
-        - [ ] Add Console sink
-        - [ ] Add File sink
-    - [ ] Add prometheus.net
+    - [x] Add Serilog
+        - [x] Add Console sink
+    - [x] Add prometheus.net
         - [x] Add basic HTTP metrics
         - [ ] Consider: Add business level metrics
     - [ ] Add Basic authorisation
@@ -45,3 +44,8 @@ and receive either a successful or successful response
     - [ ] Add docker-compose
     - [ ] Change type of the main from `void` to `int`, 
     better visibility over types of shutdown
+    
+### Improvments
+
+- [ ] Add correlation id
+- [ ] Add File sink for Serilog

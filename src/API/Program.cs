@@ -9,7 +9,11 @@ namespace API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        private readonly string ApplicationName = "payment-gateway-api";
+
+        private readonly string ApplicationVersion = "0.0.1";
+        
+        public static int Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
@@ -18,7 +22,7 @@ namespace API
                     outputTemplate:
                     "{NewLine}{Timestamp:HH:mm:ss} [{Level}] ({CorrelationToken}) {Message}{NewLine}{Exception}")
                 .CreateLogger();
-            
+
             try
             {
                 var host = new WebHostBuilder()
@@ -30,12 +34,18 @@ namespace API
 
                 host.Run();
             }
+            catch (Exception ex)
+            {
+                Log.Fatal("Application has been closed unexpectedly");
+                return 1;
+            }
             finally
             {
                 Log.Information("Application is exiting...");
                 Log.CloseAndFlush();
             }
 
+            return 0;
         }
 
         private static Action<KestrelServerOptions> KestrelOptions()
