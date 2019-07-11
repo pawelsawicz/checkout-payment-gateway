@@ -16,5 +16,5 @@ jobs:
           command: dotnet build
           
       - run:
-          name: Run App
-          command: dotnet run --project src/API/API.csproj
+          name: Run Tests
+          command: dotnet test
