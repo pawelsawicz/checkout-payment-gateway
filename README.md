@@ -49,6 +49,7 @@ and receive either a successful or successful response
 
 - [ ] Add correlation id
 - [ ] Add File sink for Serilog
+- [ ] Extract test coverage / failure for tests
 
 ### Documentation work
 
