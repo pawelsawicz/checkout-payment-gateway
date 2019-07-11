@@ -58,7 +58,7 @@ and receive either a successful or successful response
 ### Documentation work
 
 - [ ] Create infrastructure diagram
-
+- [ ] Add screenshoot of the CI
 
 
 ### Infrasturcture diagram
