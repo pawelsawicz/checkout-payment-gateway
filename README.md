@@ -44,10 +44,15 @@ and receive either a successful or successful response
     - [ ] Add docker-compose
         - [x] Create docker-compose just for API
         - [x] Create docker-compose with monitoring tools
+          - [x] Link containers together
+          - [x] Setup config for `prom` and `grafana`
+        - [ ] Create docker-compose with performance tests
+            - [ ] Link it together
+            - [ ] Mount tests into container & run tests
     - [ ] Change type of the main from `void` to `int`, 
     better visibility over types of shutdown
-- [ ] Add CI configuration (Circle CI)
-    - [ ] Create Makefile (build script)
+- [x] Add CI configuration (Circle CI)
+    - [x] Create Makefile (build script)
     
 ### Improvments
 

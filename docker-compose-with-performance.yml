@@ -1,0 +1,48 @@
+version: '3'
+
+networks:
+  back-tier:
+
+services:
+  api:
+    image: payment-gateway-api
+    ports:
+      - 5000:80
+      - 5001:443
+    networks:
+      - back-tier
+
+  prometheus:
+    image: prom/prometheus:v2.1.0
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - 9090:9090
+    depends_on:
+      - api
+    networks:
+      - back-tier
+    restart: always
+
+  grafana:
+    image: grafana/grafana
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    depends_on:
+      - prometheus
+      - api
+    networks:
+      - back-tier
+    ports:
+      - 3000:3000
+    
+  performance-tests:
+    image: loadimpact/k6
+    volumes:
+      - ./performance-tests/:/etc/performance-tests
