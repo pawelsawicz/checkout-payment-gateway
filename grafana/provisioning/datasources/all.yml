@@ -1,9 +1,9 @@
 datasources:
-  - name: 'prom1'
+  - name: 'payment-gateway-prometheus'
     type: 'prometheus'
     access: 'proxy'
     org_id: 1
-    url: 'http://localhost:9090'
+    url: 'http://prometheus:9090'
     is_default: true
     version: 1
     editable: true

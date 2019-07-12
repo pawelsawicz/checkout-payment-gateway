@@ -35,7 +35,7 @@ compose-with-monitoring-clean:
 	docker-compose -f docker-compose-with-monitoring.yml down -v --remove-orphans
 
 compose-with-monitoring: compose-with-monitoring-clean
-	docker-compose -f docker-compose-with-monitoring.yml up --force-recreate
+	docker-compose -f docker-compose-with-monitoring.yml up --force-recreate -d
 	
 ## Used by CI
 

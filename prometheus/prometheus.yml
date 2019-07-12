@@ -26,18 +26,15 @@ scrape_configs:
     scrape_interval: 5s
 
     static_configs:
-      - targets: ['localhost:9090']
-
-  - job_name: 'node-exporter'
+      - targets: ['prometheus:9090']
+          
+  - job_name: 'API'
 
     # Override the global default and scrape targets from this job every 5 seconds.
     scrape_interval: 5s
 
-    dns_sd_configs:
-      - names:
-          - 'tasks.node-exporter'
-        type: 'A'
-        port: 9100
+    static_configs:
+      - targets: ['api:80']
 
 #     static_configs:
 #          - targets: ['node-exporter:9100']

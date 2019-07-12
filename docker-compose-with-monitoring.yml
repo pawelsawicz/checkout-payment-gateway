@@ -1,11 +1,17 @@
 version: '3'
 
+networks:
+  back-tier:
+
 services:
   api:
     image: payment-gateway-api
     ports:
-      - 80:5000
-      - 443:5001
+      - 5000:80
+      - 5001:443
+    networks:
+      - back-tier
+
   prometheus:
     image: prom/prometheus:v2.1.0
     volumes:
@@ -17,6 +23,10 @@ services:
       - '--web.console.templates=/usr/share/prometheus/consoles'
     ports:
       - 9090:9090
+    depends_on:
+      - api
+    networks:
+      - back-tier
     restart: always
 
   grafana:
@@ -26,5 +36,8 @@ services:
       - ./grafana/dashboards:/var/lib/grafana/dashboards
     depends_on:
       - prometheus
+      - api
+    networks:
+      - back-tier
     ports:
       - 3000:3000
