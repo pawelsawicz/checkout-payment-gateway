@@ -6,3 +6,5 @@
 
 
 ## Payment Gateway (Proper model)
+
+![event-modeling-mvp](payment-gateway-features-2.jpg)
