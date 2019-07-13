@@ -3,7 +3,7 @@
 checkout-payment-gateway coding exercise
 
 
-Extra mile bonus points
+Extra mile bonus points (please see the [commentary](/docs/bonus-points.md))
 
 - [ ] [Application logging](/docs/bonus-points.md#application-logging)
 - [ ] [Application metrics](/docs/bonus-points.md#application-metrics)

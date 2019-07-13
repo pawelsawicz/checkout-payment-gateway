@@ -6,8 +6,11 @@ VERSION := $(shell versioner VERSION 2>/dev/null || echo `cat VERSION` -dev)
 
 version:
 	@echo $(VERSION)
+	
+tests:
+	dotnet build && dotnet test
 
-compile:
+compile: tests
 	@echo "~~~ Compiling project ~~~"
 	dotnet clean -c Release && dotnet publish -c Release
 
