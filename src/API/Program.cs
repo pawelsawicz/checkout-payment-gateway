@@ -53,9 +53,12 @@ namespace API
             return o =>
             {
                 o.Listen(
-                    IPAddress.Parse("127.0.0.1"),
-                    5000,
-                    options => { options.UseHttps(new X509Certificate2(@"./certs/tls.pfx", "somepassword")); });
+                    IPAddress.Any,
+                    443,
+                    options =>
+                    {
+                        options.UseHttps(new X509Certificate2(@"./certs/tls.pfx", "somepassword"));
+                    });
             };
         }
     }

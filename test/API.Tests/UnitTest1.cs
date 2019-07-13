@@ -10,7 +10,7 @@ namespace API.Tests
     public class UnitTest1
     {
         [Fact]
-        public async Task Test1()
+        public async Task GivenPayCommandThenPaymentInformationCreated()
         {
             using (var resolver = EventFlowOptions.New
                 .AddEvents(typeof(PaymentSucceeded))
