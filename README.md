@@ -1,7 +1,44 @@
 # checkout-payment-gateway
 
-checkout-payment-gateway coding exercise
+## Table of the content
 
+- [Buissnes Deliverables](#buissnes-deliverables)
+    - [Event Modeling](/docs/event-modeling.md)
+- Commentary to bonus points 
+- [Infrastructure Architecture](#infrasturcture-diagram)
+
+## Buissnes Deliverables
+
+1. Merchant should be able to process a payment through the payment gateway 
+and receive either a successful or successful response
+    1. Simulation of the bank component. Component should be able to be switched for 
+    a real bank once we move into production
+2. A merchant should be able to retrieve the details of a previously made payment
+
+I modelled two deliverables using event modeling.
+
+### Coding assumtions, and some commentary.
+
+**Main assumption**, I didn't try to reinvent wheel here, I used off the 
+shelf solutions whenever possible, this includes:
+
+- CQRS/ES framework
+- Validation 
+
+**What I have done**:
+- Exploring domain
+- Modeling domain via event modeling
+- Translate modelled domain into code
+- What would be the next step for the platform
+- Searching for the pitfalls
+
+Technology stack:
+ - API Framework : WebAPI ASP.NET Core
+ - CQRS/ES Framework: EventFlow
+ - Persistance storage: In-memory
+ - aaaaaa
+
+## Bonus points
 
 Extra mile bonus points (please see the [commentary](/docs/bonus-points.md))
 
@@ -15,13 +52,6 @@ Extra mile bonus points (please see the [commentary](/docs/bonus-points.md))
 - [ ] [Encryption](/docs/bonus-points.md#encryption)
 - [ ] [Data storage](/docs/bonus-points.md#data-storage)
 
-## TODO business work
-
-1. Merchant should be able to process a payment through the payment gateway 
-and receive either a successful or successful response
-    1. Simulation of the bank component. Component should be able to be swtiched for 
-    a real bank once we move into production
-2. A merchant should be able to retrieve the details of a previously made payment
 
 ## TODO Platform / Infrastructure work
 
@@ -37,7 +67,9 @@ and receive either a successful or successful response
         - [ ] Consider: Add business level metrics
     - [ ] Add Basic authorisation
     - [ ] Enforce HTTPS
-- [ ] Add performance testing project
+- [x] Add performance testing project
+    - [ ] Add performance test for payments - POST
+    - [ ] Add performance test for payments - GET
 - [ ] Add event store / database (?)
 - [ ] Add docker support
     - [x] Add dockerfile
@@ -62,7 +94,7 @@ and receive either a successful or successful response
 
 ### Documentation work
 
-- [ ] Create infrastructure diagram
+- [x] Create infrastructure diagram
 - [ ] Add screenshoot of the CI
 
 
