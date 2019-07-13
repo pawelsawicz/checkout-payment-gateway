@@ -1,7 +1,7 @@
 using EventFlow.Aggregates;
 using EventFlow.ReadStores;
 
-namespace API.Tests
+namespace API.Domain
 {
     public class PaymentInformation : IReadModel,
         IAmReadModelFor<PaymentAggregate, PaymentId, PaymentSucceeded>,

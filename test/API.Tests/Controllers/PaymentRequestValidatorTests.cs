@@ -2,7 +2,7 @@ using API.Models;
 using Shouldly;
 using Xunit;
 
-namespace API.Tests
+namespace API.Tests.Controllers
 {
     public class PaymentRequestValidatorTests
     {

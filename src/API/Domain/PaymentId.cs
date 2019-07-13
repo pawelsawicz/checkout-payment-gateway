@@ -1,6 +1,6 @@
 using EventFlow.Core;
 
-namespace API.Tests
+namespace API.Domain
 {
     public class PaymentId : Identity<PaymentId>
     {

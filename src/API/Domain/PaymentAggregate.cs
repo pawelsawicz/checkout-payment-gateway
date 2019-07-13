@@ -1,7 +1,7 @@
 using EventFlow.Aggregates;
 using EventFlow.Exceptions;
 
-namespace API.Tests
+namespace API.Domain
 {
     public class PaymentAggregate : AggregateRoot<PaymentAggregate, PaymentId>
     {

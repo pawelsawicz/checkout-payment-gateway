@@ -1,9 +1,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using API.Services;
 using EventFlow.Commands;
 
-namespace API.Tests
+namespace API.Domain
 {
     public class PayCommandHandler : CommandHandler<PaymentAggregate, PaymentId, PayCommand>
     {

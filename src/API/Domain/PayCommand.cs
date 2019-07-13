@@ -1,7 +1,7 @@
 using EventFlow.Commands;
 using EventFlow.Core;
 
-namespace API.Tests
+namespace API.Domain
 {
     public class PayCommand : Command<PaymentAggregate, PaymentId>
     {

@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace API.Tests
+namespace API.Services
 {
     public class FakeBankComponent : IBankComponent
     {

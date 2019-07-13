@@ -1,10 +1,11 @@
 using System.Threading.Tasks;
 using API.Controllers;
+using API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Shouldly;
 using Xunit;
 
-namespace API.Tests
+namespace API.Tests.Controllers
 {
     public class PaymentsControllerTests
     {
