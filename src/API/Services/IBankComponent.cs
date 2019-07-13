@@ -4,6 +4,6 @@ namespace API.Services
 {
     public interface IBankComponent
     {
-        Task<bool> ProcessPayment();
+        Task<BankPaymentResponse> ProcessPayment();
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using API.Services;
@@ -8,7 +7,7 @@ namespace API.Domain
 {
     public class PayCommandHandler : CommandHandler<PaymentAggregate, PaymentId, PayCommand>
     {
-        private IBankComponent _bankComponent;
+        private readonly IBankComponent _bankComponent;
         
         public PayCommandHandler(IBankComponent bankComponent)
         {
@@ -19,17 +18,14 @@ namespace API.Domain
             PayCommand command,
             CancellationToken cancellationToken)
         {
-
-            var bankResult = Guid.NewGuid();
-            
-            
-            if (await _bankComponent.ProcessPayment())
+            var bankPaymentResponse = await _bankComponent.ProcessPayment();
+            if (bankPaymentResponse.PaymentStatus == "Approved")
             {
-                aggregate.SetPaymentSuccessful(bankResult.ToString());
+                aggregate.SetPaymentSuccessful(bankPaymentResponse);
             }
             else
             {
-                aggregate.SetPaymentFailed(bankResult.ToString());
+                aggregate.SetPaymentFailed(bankPaymentResponse);
             }
         }
     }

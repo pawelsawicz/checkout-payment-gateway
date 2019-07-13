@@ -1,3 +1,4 @@
+using API.Services;
 using EventFlow.Aggregates;
 using EventFlow.Exceptions;
 
@@ -6,18 +7,18 @@ namespace API.Domain
     public class PaymentAggregate : AggregateRoot<PaymentAggregate, PaymentId>
     {
 
-        private string _bankIdentifier;
+        private BankPaymentResponse _bankPaymentResponse;
         
         public PaymentAggregate(PaymentId id) : base(id)
         {
         }
 
-        public void SetPaymentSuccessful(string bankIdentifier)
+        public void SetPaymentSuccessful(BankPaymentResponse bankPaymentResponse)
         {
-            if (string.IsNullOrEmpty(_bankIdentifier))
+            if (_bankPaymentResponse == null)
             {
-                _bankIdentifier = bankIdentifier;
-                Emit(new PaymentSucceeded());
+                _bankPaymentResponse = bankPaymentResponse;
+                Emit(new PaymentSucceeded(bankPaymentResponse));
             }
             else
             {
@@ -25,12 +26,12 @@ namespace API.Domain
             }
         }
 
-        public void SetPaymentFailed(string bankIdentifier)
+        public void SetPaymentFailed(BankPaymentResponse bankPaymentResponse)
         {
-            if (string.IsNullOrEmpty(_bankIdentifier))
+            if (_bankPaymentResponse == null)
             {
-                _bankIdentifier = bankIdentifier;
-                Emit(new PaymentFailed());
+                _bankPaymentResponse = bankPaymentResponse;
+                Emit(new PaymentFailed(bankPaymentResponse));
             }
             else
             {

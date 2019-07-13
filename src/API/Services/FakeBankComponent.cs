@@ -1,12 +1,18 @@
+using System;
 using System.Threading.Tasks;
 
 namespace API.Services
 {
     public class FakeBankComponent : IBankComponent
     {
-        public Task<bool> ProcessPayment()
+        public Task<BankPaymentResponse> ProcessPayment()
         {
-            return Task.FromResult(true);
+            var fakeResponse = new BankPaymentResponse
+            {
+                BankIdentifier = Guid.NewGuid().ToString(),
+                PaymentStatus = "Approved"
+            };
+            return Task.FromResult(fakeResponse);
         }
     }
 }
