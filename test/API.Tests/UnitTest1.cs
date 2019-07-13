@@ -16,6 +16,7 @@ namespace API.Tests
                 .AddEvents(typeof(PaymentSucceeded))
                 .AddCommandHandlers(typeof(PayCommandHandler))
                 .UseInMemoryReadStoreFor<PaymentInformation>()
+                .RegisterServices(registration => registration.Register<IBankComponent, FakeBankComponent>())
                 .CreateResolver()
             )
             {

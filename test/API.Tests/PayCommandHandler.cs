@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using EventFlow.Commands;
@@ -6,13 +7,29 @@ namespace API.Tests
 {
     public class PayCommandHandler : CommandHandler<PaymentAggregate, PaymentId, PayCommand>
     {
-        public override Task ExecuteAsync(
+        private IBankComponent _bankComponent;
+        
+        public PayCommandHandler(IBankComponent bankComponent)
+        {
+            _bankComponent = bankComponent;
+        }
+        public override async Task ExecuteAsync(
             PaymentAggregate aggregate,
             PayCommand command,
             CancellationToken cancellationToken)
         {
-            aggregate.SetPaymentSuccessful();
-            return Task.FromResult(0);
+
+            var bankResult = Guid.NewGuid();
+            
+            
+            if (await _bankComponent.ProcessPayment())
+            {
+                aggregate.SetPaymentSuccessful(bankResult.ToString());
+            }
+            else
+            {
+                aggregate.SetPaymentFailed(bankResult.ToString());
+            }
         }
     }
 }
