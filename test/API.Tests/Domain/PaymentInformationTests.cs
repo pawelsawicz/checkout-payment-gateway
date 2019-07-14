@@ -15,24 +15,27 @@ namespace API.Tests.Domain
         [Fact]
         public async Task GivenPaymentSucceededThenPaymentInformationReadModelCreated()
         {
+            // arrange
             using (var resolver = EventFlowOptions.New
                 .AddEvents(typeof(PaymentSucceeded))
                 .AddCommandHandlers(typeof(PayCommandHandler))
                 .UseInMemoryReadStoreFor<PaymentInformation>()
-                .RegisterServices(registration => registration.Register<IBankComponent, FakeBankComponentWithSuccessfulResponse>())
+                .RegisterServices(registration => 
+                    registration.Register<IAcquiringBankService, FakeAcquiringBankServiceWithSuccessfulResponse>())
                 .CreateResolver()
             )
             {
                 var exampleId = PaymentId.New;
+                var queryProcessor = resolver.Resolve<IQueryProcessor>();
                 var commandBus = resolver.Resolve<ICommandBus>();
-
                 await commandBus.PublishAsync(new PayCommand(exampleId, CreateRequest()), CancellationToken.None);
 
-                var queryProcessor = resolver.Resolve<IQueryProcessor>();
+                // act
                 var result = await queryProcessor.ProcessAsync(
                     new ReadModelByIdQuery<PaymentInformation>(exampleId),
                     CancellationToken.None);
 
+                // assert
                 Assert.Equal(typeof(PaymentInformation), result.GetType());
                 Assert.NotEmpty(result.bankPaymentResponse.BankIdentifier);
                 Assert.NotEmpty(result.bankPaymentResponse.PaymentStatus);
@@ -44,24 +47,28 @@ namespace API.Tests.Domain
         [Fact]
         public async Task GivenPaymentFailedThenPaymentInformationReadModelCreated()
         {
+            // arrange
             using (var resolver = EventFlowOptions.New
                 .AddEvents(typeof(PaymentFailed))
                 .AddCommandHandlers(typeof(PayCommandHandler))
                 .UseInMemoryReadStoreFor<PaymentInformation>()
-                .RegisterServices(registration => registration.Register<IBankComponent, FakeBankComponentWithFailedResponse>())
+                .RegisterServices(registration => 
+                    registration.Register<IAcquiringBankService, FakeAcquiringBankServiceWithFailedResponse>())
                 .CreateResolver()
             )
             {
                 var exampleId = PaymentId.New;
                 var commandBus = resolver.Resolve<ICommandBus>();
-
-                await commandBus.PublishAsync(new PayCommand(exampleId, CreateRequest()), CancellationToken.None);
-
                 var queryProcessor = resolver.Resolve<IQueryProcessor>();
+                await commandBus.PublishAsync(new PayCommand(exampleId, CreateRequest()), CancellationToken.None);
+                
+                
+                // act
                 var result = await queryProcessor.ProcessAsync(
                     new ReadModelByIdQuery<PaymentInformation>(exampleId),
                     CancellationToken.None);
 
+                // assert
                 Assert.Equal(typeof(PaymentInformation), result.GetType());
                 Assert.NotEmpty(result.bankPaymentResponse.BankIdentifier);
                 Assert.NotEmpty(result.bankPaymentResponse.PaymentStatus);

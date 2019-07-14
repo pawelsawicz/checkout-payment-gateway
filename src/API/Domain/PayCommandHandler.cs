@@ -7,18 +7,18 @@ namespace API.Domain
 {
     public class PayCommandHandler : CommandHandler<PaymentAggregate, PaymentId, PayCommand>
     {
-        private readonly IBankComponent _bankComponent;
+        private readonly IAcquiringBankService _acquiringBankService;
         
-        public PayCommandHandler(IBankComponent bankComponent)
+        public PayCommandHandler(IAcquiringBankService acquiringBankService)
         {
-            _bankComponent = bankComponent;
+            _acquiringBankService = acquiringBankService;
         }
         public override async Task ExecuteAsync(
             PaymentAggregate aggregate,
             PayCommand command,
             CancellationToken cancellationToken)
         {
-            var bankPaymentResponse = await _bankComponent.ProcessPayment();
+            var bankPaymentResponse = await _acquiringBankService.ProcessPayment();
             if (bankPaymentResponse.PaymentStatus == "Approved")
             {
                 aggregate.SetPaymentSuccessful(bankPaymentResponse);

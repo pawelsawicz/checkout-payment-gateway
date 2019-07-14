@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace API.Services
 {
-    public class AcquiringBankComponent : IBankComponent
+    public class AcquiringBankService : IAcquiringBankService
     {
         public Task<BankPaymentResponse> ProcessPayment()
         {

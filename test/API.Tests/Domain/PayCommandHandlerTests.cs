@@ -13,13 +13,16 @@ namespace API.Tests.Domain
         [Fact]
         public async Task GivenPayCommandHandlerWhenPaymentIsApprovedThenChangeAggregateToSuccessful()
         {
-            var commandHandler = new PayCommandHandler(new FakeBankComponentWithSuccessfulResponse());
+            // arrange
+            var commandHandler = new PayCommandHandler(new FakeAcquiringBankServiceWithSuccessfulResponse());
             var aggregateId = PaymentId.New;
             var command = new PayCommand(aggregateId, CreateRequest());
             var aggregate = new PaymentAggregate(aggregateId);
 
+            // act
             await commandHandler.ExecuteAsync(aggregate, command, CancellationToken.None);
 
+            // assert
             Assert.NotNull(aggregate.UncommittedEvents
                 .Single(x => x.AggregateEvent.GetType() == typeof(PaymentSucceeded)));
         }
@@ -27,13 +30,16 @@ namespace API.Tests.Domain
         [Fact]
         public async Task GivenPayCommandHandlerWhenPaymentIsFailedThenChangeAggregateToFailed()
         {
-            var commandHandler = new PayCommandHandler(new FakeBankComponentWithFailedResponse());
+            // arrange
+            var commandHandler = new PayCommandHandler(new FakeAcquiringBankServiceWithFailedResponse());
             var aggregateId = PaymentId.New;
             var command = new PayCommand(aggregateId, CreateRequest());
             var aggregate = new PaymentAggregate(aggregateId);
 
+            // act
             await commandHandler.ExecuteAsync(aggregate, command, CancellationToken.None);
 
+            // assert
             Assert.NotNull(aggregate.UncommittedEvents
                 .Single(x => x.AggregateEvent.GetType() == typeof(PaymentFailed)));
         }
