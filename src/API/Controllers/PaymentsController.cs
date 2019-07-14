@@ -77,8 +77,8 @@ namespace API.Controllers
             //Logger.Information($"Exiting {nameof(PaymentsController)} - {nameof(Post)}");
         }
 
-        private BankPaymentRequest ToBankPaymentRequest(PaymentRequest paymentRequest) =>
-            new BankPaymentRequest
+        private AcquiringBankPaymentRequest ToBankPaymentRequest(PaymentRequest paymentRequest) =>
+            new AcquiringBankPaymentRequest
             {
                 CardNumber = paymentRequest.CardNumber,
                 ExpiryDate = paymentRequest.ExpiryDate,

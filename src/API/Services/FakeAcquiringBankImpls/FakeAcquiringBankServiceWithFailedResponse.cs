@@ -5,9 +5,9 @@ namespace API.Services.FakeAcquiringBankImpls
 {
     public class FakeAcquiringBankServiceWithFailedResponse : IAcquiringBankService
     {
-        public Task<BankPaymentResponse> ProcessPayment(BankPaymentRequest bankPaymentRequest)
+        public Task<AcquiringBankPaymentResponse> ProcessPayment(AcquiringBankPaymentRequest acquiringBankPaymentRequest)
         {
-            return Task.FromResult(new BankPaymentResponse
+            return Task.FromResult(new AcquiringBankPaymentResponse
             {
                 BankIdentifier = Guid.NewGuid().ToString(),
                 PaymentStatus = "Failed"

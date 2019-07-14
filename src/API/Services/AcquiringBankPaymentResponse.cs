@@ -1,6 +1,6 @@
 namespace API.Services
 {
-    public sealed class BankPaymentResponse
+    public sealed class AcquiringBankPaymentResponse
     {
         public string BankIdentifier { get; set; }
         

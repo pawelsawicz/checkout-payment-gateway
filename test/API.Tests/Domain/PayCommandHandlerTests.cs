@@ -45,7 +45,7 @@ namespace API.Tests.Domain
                 .Single(x => x.AggregateEvent.GetType() == typeof(PaymentFailed)));
         }
 
-        private BankPaymentRequest CreateRequest() => new BankPaymentRequest
+        private AcquiringBankPaymentRequest CreateRequest() => new AcquiringBankPaymentRequest
         {
             CardNumber = Guid.NewGuid().ToString(),
             ExpiryMonth = 8,

@@ -18,7 +18,7 @@ namespace API.Domain
             PayCommand command,
             CancellationToken cancellationToken)
         {
-            var bankPaymentResponse = await _acquiringBankService.ProcessPayment(command.BankPaymentRequest);
+            var bankPaymentResponse = await _acquiringBankService.ProcessPayment(command.AcquiringBankPaymentRequest);
             if (bankPaymentResponse.PaymentStatus == "Approved")
             {
                 aggregate.SetPaymentSuccessful(bankPaymentResponse);

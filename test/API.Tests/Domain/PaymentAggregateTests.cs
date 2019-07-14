@@ -14,7 +14,7 @@ namespace API.Tests.Domain
         {
             // arrange
             var paymentAggregate = new PaymentAggregate(PaymentId.New);
-            var bankPaymentResponse = new BankPaymentResponse();
+            var bankPaymentResponse = new AcquiringBankPaymentResponse();
             
             // act
             paymentAggregate.SetPaymentSuccessful(bankPaymentResponse);
@@ -29,7 +29,7 @@ namespace API.Tests.Domain
         {
             // arrange
             var paymentAggregate = new PaymentAggregate(PaymentId.New);
-            var bankPaymentResponse = new BankPaymentResponse();
+            var bankPaymentResponse = new AcquiringBankPaymentResponse();
 
             // act
             paymentAggregate.SetPaymentFailed(bankPaymentResponse);
@@ -44,7 +44,7 @@ namespace API.Tests.Domain
         {
             // arrange
             var paymentAggregate = new PaymentAggregate(PaymentId.New);
-            var bankPaymentResponse = new BankPaymentResponse();
+            var bankPaymentResponse = new AcquiringBankPaymentResponse();
             paymentAggregate.SetPaymentFailed(bankPaymentResponse);
 
             // act
@@ -60,7 +60,7 @@ namespace API.Tests.Domain
         {
             // arrange
             var paymentAggregate = new PaymentAggregate(PaymentId.New);
-            var bankPaymentResponse = new BankPaymentResponse();
+            var bankPaymentResponse = new AcquiringBankPaymentResponse();
             paymentAggregate.SetPaymentSuccessful(bankPaymentResponse);
 
             // act

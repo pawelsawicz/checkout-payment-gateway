@@ -5,11 +5,11 @@ namespace API.Domain
 {
     public class PaymentSucceeded : AggregateEvent<PaymentAggregate, PaymentId>
     {
-        public PaymentSucceeded(BankPaymentResponse bankPaymentResponse)
+        public PaymentSucceeded(AcquiringBankPaymentResponse acquiringBankPaymentResponse)
         {
-            BankPaymentResponse = bankPaymentResponse;
+            AcquiringBankPaymentResponse = acquiringBankPaymentResponse;
         }
         
-        public BankPaymentResponse BankPaymentResponse { get; }
+        public AcquiringBankPaymentResponse AcquiringBankPaymentResponse { get; }
     }
 }

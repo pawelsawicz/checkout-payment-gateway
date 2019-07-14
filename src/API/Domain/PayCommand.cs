@@ -6,12 +6,12 @@ namespace API.Domain
     public class PayCommand : Command<PaymentAggregate, PaymentId>
     {
         public PayCommand(PaymentId aggregateId,
-            BankPaymentRequest bankPaymentRequest)
+            AcquiringBankPaymentRequest acquiringBankPaymentRequest)
             : base(aggregateId)
         {
-            BankPaymentRequest = bankPaymentRequest;
+            AcquiringBankPaymentRequest = acquiringBankPaymentRequest;
         }
         
-        public BankPaymentRequest BankPaymentRequest { get; }
+        public AcquiringBankPaymentRequest AcquiringBankPaymentRequest { get; }
     }
 }

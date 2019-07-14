@@ -1,6 +1,6 @@
 namespace API.Services
 {
-    public class BankPaymentRequest
+    public class AcquiringBankPaymentRequest
     {
         public string CardNumber { get; set; }
 

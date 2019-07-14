@@ -38,9 +38,9 @@ namespace API.Tests.Domain
 
                 // assert
                 Assert.Equal(typeof(PaymentInformation), result.GetType());
-                Assert.NotEmpty(result.bankPaymentResponse.BankIdentifier);
-                Assert.NotEmpty(result.bankPaymentResponse.PaymentStatus);
-                Assert.Equal("Approved", result.bankPaymentResponse.PaymentStatus);
+                Assert.NotEmpty(result.AcquiringBankPaymentResponse.BankIdentifier);
+                Assert.NotEmpty(result.AcquiringBankPaymentResponse.PaymentStatus);
+                Assert.Equal("Approved", result.AcquiringBankPaymentResponse.PaymentStatus);
                 Assert.Equal($"http://localhost:5000/api/payments/{exampleId.Value}", result.Links.self_href);
             }
         }
@@ -71,14 +71,14 @@ namespace API.Tests.Domain
 
                 // assert
                 Assert.Equal(typeof(PaymentInformation), result.GetType());
-                Assert.NotEmpty(result.bankPaymentResponse.BankIdentifier);
-                Assert.NotEmpty(result.bankPaymentResponse.PaymentStatus);
-                Assert.Equal("Failed", result.bankPaymentResponse.PaymentStatus);
+                Assert.NotEmpty(result.AcquiringBankPaymentResponse.BankIdentifier);
+                Assert.NotEmpty(result.AcquiringBankPaymentResponse.PaymentStatus);
+                Assert.Equal("Failed", result.AcquiringBankPaymentResponse.PaymentStatus);
                 Assert.Equal($"http://localhost:5000/api/payments/{exampleId.Value}", result.Links.self_href);
             }
         }
 
-        private BankPaymentRequest CreateRequest() => new BankPaymentRequest
+        private AcquiringBankPaymentRequest CreateRequest() => new AcquiringBankPaymentRequest
         {
             CardNumber = Guid.NewGuid().ToString(),
             ExpiryMonth = 8,

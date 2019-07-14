@@ -11,7 +11,7 @@ namespace API.Domain
     {
         public PaymentId paymentId { get; private set; }
         
-        public BankPaymentResponse bankPaymentResponse { get; private set; }
+        public AcquiringBankPaymentResponse AcquiringBankPaymentResponse { get; private set; }
         
         public Links Links { get; private set; }
         
@@ -20,7 +20,7 @@ namespace API.Domain
             IDomainEvent<PaymentAggregate, PaymentId, PaymentSucceeded> domainEvent)
         {
             paymentId = domainEvent.AggregateIdentity;
-            bankPaymentResponse = domainEvent.AggregateEvent.BankPaymentResponse;
+            AcquiringBankPaymentResponse = domainEvent.AggregateEvent.AcquiringBankPaymentResponse;
             Links = ToLinks(paymentId);
         }
 
@@ -29,7 +29,7 @@ namespace API.Domain
             IDomainEvent<PaymentAggregate, PaymentId, PaymentFailed> domainEvent)
         {
             paymentId = domainEvent.AggregateIdentity;
-            bankPaymentResponse = domainEvent.AggregateEvent.BankPaymentResponse;
+            AcquiringBankPaymentResponse = domainEvent.AggregateEvent.AcquiringBankPaymentResponse;
             Links = ToLinks(paymentId);
         }
 
