@@ -99,13 +99,13 @@ Extra mile bonus points (please see the [commentary](/docs/bonus-points.md))
 
 ### Coding
 
-- [ ] Introduce Payment Aggregate
+- [x] Introduce Payment Aggregate
     - [ ] Acquiring Bank Payment Response (guard against two responses)
-- [ ] Introduce Pay Command
+- [x] Introduce Pay Command
     - [ ] Acquiring Bank Payment Request
-- [ ] Introduce PaymentSucceeded Event
+- [x] Introduce PaymentSucceeded Event
     - [ ] Acquiring Bank Payment Response
-- [ ] Introduce PaymentFailed Event
+- [x] Introduce PaymentFailed Event
     - [ ] Acquiring Bank Payment Response
 - [ ] Introduce Payment Information Read Model
     - [ ] Masked card number
@@ -113,6 +113,7 @@ Extra mile bonus points (please see the [commentary](/docs/bonus-points.md))
     - [ ] Payment details
     - [ ] Status code for the payment
     - [ ] Links
+- [ ] Create switch for live Acquiring Bank component
 
 ### Test coverage
 

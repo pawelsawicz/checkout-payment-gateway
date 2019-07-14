@@ -29,15 +29,14 @@ namespace API
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddFluentValidation(o => o.RegisterValidatorsFromAssemblyContaining<Startup>());
-
+            
             services.AddCors();
-
             services.AddSingleton(EventFlowOptions.New
                 .AddEvents(typeof(PaymentSucceeded), typeof(PaymentFailed))
                 .AddCommandHandlers(typeof(PayCommandHandler))
                 .UseInMemoryReadStoreFor<PaymentInformation>()
                 .RegisterServices(registration =>
-                    registration.Register<IAcquiringBankService, FakeAcquiringBankServiceRandomResponse>())
+                    registration.Register(x => AcquiringBankServiceFactory.Create(Configuration)))
                 .CreateResolver());
         }
 

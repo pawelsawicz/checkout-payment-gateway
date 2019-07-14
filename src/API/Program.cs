@@ -3,6 +3,7 @@ using System.Net;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.Extensions.Configuration;
 using Serilog;
 
 namespace API
@@ -30,6 +31,11 @@ namespace API
                     .UseStartup<Startup>()
                     .UseIISIntegration()
                     .UseSerilog()
+                    .ConfigureAppConfiguration(x=>
+                    {
+                        x.AddEnvironmentVariables();
+                        x.AddJsonFile("appsettings.json");
+                    })
                     .Build();
 
                 host.Run();
@@ -37,6 +43,7 @@ namespace API
             catch (Exception ex)
             {
                 Log.Fatal("Application has been closed unexpectedly");
+                Log.Fatal(ex.ToString());
                 return 1;
             }
             finally

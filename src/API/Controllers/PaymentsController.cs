@@ -6,7 +6,6 @@ using API.Models;
 using API.Services;
 using EventFlow;
 using EventFlow.Configuration;
-using EventFlow.Extensions;
 using EventFlow.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
@@ -45,7 +44,8 @@ namespace API.Controllers
             }
             catch (Exception ex)
             {
-
+                Logger.Error("There was unexpected error while handling your request", ex);
+                return StatusCode(500);
             }
 
             var paymentInformation = await _queryProcessor.ProcessAsync(
@@ -54,7 +54,7 @@ namespace API.Controllers
 
             Logger.Information($"Exiting {nameof(PaymentsController)} - {nameof(Post)}");
 
-            return await Task.FromResult(Ok(paymentInformation));
+            return Created(paymentInformation.Links.self_href, paymentInformation);
 
         }
 
@@ -68,16 +68,15 @@ namespace API.Controllers
             {
                 var view = await _queryProcessor.ProcessAsync(new ReadModelByIdQuery<PaymentInformation>(paymentId),
                     CancellationToken.None);
-                return await Task.FromResult(Ok(view));
+                return Ok(view);
             }
             catch (Exception ex)
             {
-
+                Logger.Error("There was unexpected error while handling your request", ex);
+                return StatusCode(500);
             }
 
-            Logger.Information($"Exiting {nameof(PaymentsController)} - {nameof(Post)}");
-
-            return BadRequest();
+            //Logger.Information($"Exiting {nameof(PaymentsController)} - {nameof(Post)}");
         }
 
         private BankPaymentRequest ToBankPaymentRequest(PaymentRequest paymentRequest) =>
