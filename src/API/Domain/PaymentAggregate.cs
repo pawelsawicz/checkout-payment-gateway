@@ -41,10 +41,12 @@ namespace API.Domain
 
         public void Apply(PaymentSucceeded paymentSucceeded)
         {
+            _bankPaymentResponse = paymentSucceeded.BankPaymentResponse;
         }
 
         public void Apply(PaymentFailed paymentFailed)
         {
+            _bankPaymentResponse = paymentFailed.BankPaymentResponse;
         }
     }
 }

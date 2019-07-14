@@ -3,16 +3,15 @@ using System.Threading.Tasks;
 
 namespace API.Services
 {
-    public class FakeBankComponent : IBankComponent
+    public class FakeBankComponentWithSuccessfulResponse : IBankComponent
     {
         public Task<BankPaymentResponse> ProcessPayment()
         {
-            var fakeResponse = new BankPaymentResponse
+            return Task.FromResult(new BankPaymentResponse
             {
                 BankIdentifier = Guid.NewGuid().ToString(),
                 PaymentStatus = "Approved"
-            };
-            return Task.FromResult(fakeResponse);
+            });
         }
     }
 }

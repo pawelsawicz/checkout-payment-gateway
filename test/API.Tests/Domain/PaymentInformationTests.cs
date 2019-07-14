@@ -12,13 +12,13 @@ namespace API.Tests.Domain
     public class PaymentInformationTests
     {
         [Fact]
-        public async Task GivenPaymentSucceededThenPaymentInformation()
+        public async Task GivenPaymentSucceededThenPaymentInformationReadModelCreated()
         {
             using (var resolver = EventFlowOptions.New
                 .AddEvents(typeof(PaymentSucceeded))
                 .AddCommandHandlers(typeof(PayCommandHandler))
                 .UseInMemoryReadStoreFor<PaymentInformation>()
-                .RegisterServices(registration => registration.Register<IBankComponent, FakeBankComponent>())
+                .RegisterServices(registration => registration.Register<IBankComponent, FakeBankComponentWithSuccessfulResponse>())
                 .CreateResolver()
             )
             {
@@ -35,17 +35,18 @@ namespace API.Tests.Domain
                 Assert.Equal(typeof(PaymentInformation), result.GetType());
                 Assert.NotEmpty(result.bankPaymentResponse.BankIdentifier);
                 Assert.NotEmpty(result.bankPaymentResponse.PaymentStatus);
+                Assert.Equal("Approved", result.bankPaymentResponse.PaymentStatus);
             }
         }
         
         [Fact]
-        public async Task GivenPaymentFailedThenPaymentInformation()
+        public async Task GivenPaymentFailedThenPaymentInformationReadModelCreated()
         {
             using (var resolver = EventFlowOptions.New
-                .AddEvents(typeof(PaymentSucceeded))
+                .AddEvents(typeof(PaymentFailed))
                 .AddCommandHandlers(typeof(PayCommandHandler))
                 .UseInMemoryReadStoreFor<PaymentInformation>()
-                .RegisterServices(registration => registration.Register<IBankComponent, FakeBankComponent>())
+                .RegisterServices(registration => registration.Register<IBankComponent, FakeBankComponentWithFailedResponse>())
                 .CreateResolver()
             )
             {
@@ -62,6 +63,7 @@ namespace API.Tests.Domain
                 Assert.Equal(typeof(PaymentInformation), result.GetType());
                 Assert.NotEmpty(result.bankPaymentResponse.BankIdentifier);
                 Assert.NotEmpty(result.bankPaymentResponse.PaymentStatus);
+                Assert.Equal("Failed", result.bankPaymentResponse.PaymentStatus);
             }
         }
     }
