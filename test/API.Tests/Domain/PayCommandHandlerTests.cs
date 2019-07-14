@@ -3,6 +3,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using API.Domain;
+using API.Domain.Commands;
+using API.Domain.Events;
 using API.Services;
 using API.Services.FakeAcquiringBankImpls;
 using Xunit;

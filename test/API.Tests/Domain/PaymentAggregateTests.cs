@@ -1,5 +1,6 @@
 using System.Linq;
 using API.Domain;
+using API.Domain.Events;
 using EventFlow.Exceptions;
 using Xunit;
 

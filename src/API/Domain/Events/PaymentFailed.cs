@@ -1,6 +1,6 @@
 using EventFlow.Aggregates;
 
-namespace API.Domain
+namespace API.Domain.Events
 {
     public class PaymentFailed : AggregateEvent<PaymentAggregate, PaymentId>
     {

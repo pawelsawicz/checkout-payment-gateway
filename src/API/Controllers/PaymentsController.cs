@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using API.Domain;
+using API.Domain.Commands;
 using API.Models;
 using API.Services;
 using EventFlow;
@@ -48,7 +49,7 @@ namespace API.Controllers
             }
 
             var paymentInformation = await _queryProcessor.ProcessAsync(
-                new ReadModelByIdQuery<PaymentInformation>(paymentId),
+                new ReadModelByIdQuery<PaymentInformationReadModel>(paymentId),
                 CancellationToken.None);
 
             Logger.Information($"Exiting {nameof(PaymentsController)} - {nameof(Post)}");
@@ -64,7 +65,7 @@ namespace API.Controllers
 
             try
             {
-                var view = await _queryProcessor.ProcessAsync(new ReadModelByIdQuery<PaymentInformation>(paymentId),
+                var view = await _queryProcessor.ProcessAsync(new ReadModelByIdQuery<PaymentInformationReadModel>(paymentId),
                     CancellationToken.None);
                 return Ok(view);
             }

@@ -1,7 +1,7 @@
 ﻿using API.Domain;
+using API.Domain.Events;
 using API.Services;
 using EventFlow;
-using EventFlow.Configuration;
 using EventFlow.Extensions;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -34,7 +34,7 @@ namespace API
             services.AddSingleton(EventFlowOptions.New
                 .AddEvents(typeof(PaymentSucceeded), typeof(PaymentFailed))
                 .AddCommandHandlers(typeof(PayCommandHandler))
-                .UseInMemoryReadStoreFor<PaymentInformation>()
+                .UseInMemoryReadStoreFor<PaymentInformationReadModel>()
                 .RegisterServices(registration =>
                     registration.Register(x => AcquiringBankServiceFactory.Create(Configuration)))
                 .CreateResolver());

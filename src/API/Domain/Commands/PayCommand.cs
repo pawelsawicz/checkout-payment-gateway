@@ -1,7 +1,7 @@
 using API.Services;
 using EventFlow.Commands;
 
-namespace API.Domain
+namespace API.Domain.Commands
 {
     public class PayCommand : Command<PaymentAggregate, PaymentId>
     {

@@ -100,27 +100,27 @@ Extra mile bonus points (please see the [commentary](/docs/bonus-points.md))
 ### Coding
 
 - [x] Introduce Payment Aggregate
-    - [ ] Acquiring Bank Payment Response (guard against two responses)
+    - [x] Payment Status
 - [x] Introduce Pay Command
-    - [ ] Acquiring Bank Payment Request
+    - [x] Acquiring Bank Payment Request
 - [x] Introduce PaymentSucceeded Event
-    - [ ] Acquiring Bank Payment Response
+    - [x] Payment Status
 - [x] Introduce PaymentFailed Event
-    - [ ] Acquiring Bank Payment Response
+    - [x] Payment Status
 - [ ] Introduce Payment Information Read Model
     - [ ] Masked card number
-    - [ ] Card details
-    - [ ] Payment details
-    - [ ] Status code for the payment
-    - [ ] Links
-- [ ] Create switch for live Acquiring Bank component
+    - [x] Card details
+        - Without CVV as in [checkout](https://docs.checkout.com/docs/full-card-details-api)
+    - [x] Payment details
+    - [x] Status code for the payment
+    - [x] Links
+- [x] Create switch for live Acquiring Bank component
 
 ### Test coverage
 
 - [ ] Tests for Payment Aggregate state changes
 - [ ] Tests for Pay Command Handler
 - [ ] Tests for Payment Information Read Model
-
 - [ ] Test for controller
 
 

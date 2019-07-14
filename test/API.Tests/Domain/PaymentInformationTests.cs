@@ -2,6 +2,8 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using API.Domain;
+using API.Domain.Commands;
+using API.Domain.Events;
 using API.Services;
 using API.Services.FakeAcquiringBankImpls;
 using EventFlow;
@@ -20,28 +22,33 @@ namespace API.Tests.Domain
             using (var resolver = EventFlowOptions.New
                 .AddEvents(typeof(PaymentSucceeded))
                 .AddCommandHandlers(typeof(PayCommandHandler))
-                .UseInMemoryReadStoreFor<PaymentInformation>()
+                .UseInMemoryReadStoreFor<PaymentInformationReadModel>()
                 .RegisterServices(registration => 
                     registration.Register<IAcquiringBankService, FakeAcquiringBankServiceWithSuccessfulResponse>())
                 .CreateResolver()
             )
             {
-                var exampleId = PaymentId.New;
+                var paymentId = PaymentId.New;
                 var queryProcessor = resolver.Resolve<IQueryProcessor>();
                 var commandBus = resolver.Resolve<ICommandBus>();
-                await commandBus.PublishAsync(new PayCommand(exampleId, CreateRequest()), CancellationToken.None);
+                var bankPaymentRequest = CreateRequest();
+                await commandBus.PublishAsync(new PayCommand(paymentId, bankPaymentRequest), CancellationToken.None);
 
                 // act
                 var result = await queryProcessor.ProcessAsync(
-                    new ReadModelByIdQuery<PaymentInformation>(exampleId),
+                    new ReadModelByIdQuery<PaymentInformationReadModel>(paymentId),
                     CancellationToken.None);
 
                 // assert
-                Assert.Equal(typeof(PaymentInformation), result.GetType());
                 Assert.NotEmpty(result.PaymentStatus.BankIdentifier);
-                Assert.NotEmpty(result.PaymentStatus.PaymentStatusCode);
                 Assert.Equal("Approved", result.PaymentStatus.PaymentStatusCode);
-                Assert.Equal($"http://localhost:5000/api/payments/{exampleId.Value}", result.Links.self_href);
+                Assert.Equal(bankPaymentRequest.CardNumber, result.PaymentStatus.CardNumber);
+                Assert.Equal(bankPaymentRequest.ExpiryMonth, result.PaymentStatus.ExpiryMonth);
+                Assert.Equal(bankPaymentRequest.ExpiryDate, result.PaymentStatus.ExpiryDate);
+                Assert.Equal(bankPaymentRequest.Name, result.PaymentStatus.Name);
+                Assert.Equal(bankPaymentRequest.Amount, result.PaymentStatus.Amount);
+                Assert.Equal(bankPaymentRequest.CurrencyCode, result.PaymentStatus.CurrencyCode);
+                Assert.Equal($"http://localhost:5000/api/payments/{paymentId.Value}", result.Links.self_href);
             }
         }
         
@@ -52,29 +59,34 @@ namespace API.Tests.Domain
             using (var resolver = EventFlowOptions.New
                 .AddEvents(typeof(PaymentFailed))
                 .AddCommandHandlers(typeof(PayCommandHandler))
-                .UseInMemoryReadStoreFor<PaymentInformation>()
+                .UseInMemoryReadStoreFor<PaymentInformationReadModel>()
                 .RegisterServices(registration => 
                     registration.Register<IAcquiringBankService, FakeAcquiringBankServiceWithFailedResponse>())
                 .CreateResolver()
             )
             {
-                var exampleId = PaymentId.New;
+                var paymentId = PaymentId.New;
                 var commandBus = resolver.Resolve<ICommandBus>();
                 var queryProcessor = resolver.Resolve<IQueryProcessor>();
-                await commandBus.PublishAsync(new PayCommand(exampleId, CreateRequest()), CancellationToken.None);
+                var bankPaymentRequest = CreateRequest();
+                await commandBus.PublishAsync(new PayCommand(paymentId, bankPaymentRequest), CancellationToken.None);
                 
                 
                 // act
                 var result = await queryProcessor.ProcessAsync(
-                    new ReadModelByIdQuery<PaymentInformation>(exampleId),
+                    new ReadModelByIdQuery<PaymentInformationReadModel>(paymentId),
                     CancellationToken.None);
 
                 // assert
-                Assert.Equal(typeof(PaymentInformation), result.GetType());
                 Assert.NotEmpty(result.PaymentStatus.BankIdentifier);
-                Assert.NotEmpty(result.PaymentStatus.PaymentStatusCode);
                 Assert.Equal("Failed", result.PaymentStatus.PaymentStatusCode);
-                Assert.Equal($"http://localhost:5000/api/payments/{exampleId.Value}", result.Links.self_href);
+                Assert.Equal(bankPaymentRequest.CardNumber, result.PaymentStatus.CardNumber);
+                Assert.Equal(bankPaymentRequest.ExpiryMonth, result.PaymentStatus.ExpiryMonth);
+                Assert.Equal(bankPaymentRequest.ExpiryDate, result.PaymentStatus.ExpiryDate);
+                Assert.Equal(bankPaymentRequest.Name, result.PaymentStatus.Name);
+                Assert.Equal(bankPaymentRequest.Amount, result.PaymentStatus.Amount);
+                Assert.Equal(bankPaymentRequest.CurrencyCode, result.PaymentStatus.CurrencyCode);
+                Assert.Equal($"http://localhost:5000/api/payments/{paymentId.Value}", result.Links.self_href);
             }
         }
 

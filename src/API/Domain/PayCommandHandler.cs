@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using API.Domain.Commands;
 using API.Services;
 using EventFlow.Commands;
 

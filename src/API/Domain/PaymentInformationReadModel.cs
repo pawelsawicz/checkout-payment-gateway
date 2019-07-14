@@ -1,10 +1,11 @@
 using System;
+using API.Domain.Events;
 using EventFlow.Aggregates;
 using EventFlow.ReadStores;
 
 namespace API.Domain
 {
-    public class PaymentInformation : IReadModel,
+    public class PaymentInformationReadModel : IReadModel,
         IAmReadModelFor<PaymentAggregate, PaymentId, PaymentSucceeded>,
         IAmReadModelFor<PaymentAggregate, PaymentId, PaymentFailed>
     {

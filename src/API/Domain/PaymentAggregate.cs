@@ -1,3 +1,4 @@
+using API.Domain.Events;
 using EventFlow.Aggregates;
 using EventFlow.Exceptions;
 
