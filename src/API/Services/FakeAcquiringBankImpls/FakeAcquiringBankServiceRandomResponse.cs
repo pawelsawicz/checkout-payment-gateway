@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace API.Services
+namespace API.Services.FakeAcquiringBankImpls
 {
     public sealed class FakeAcquiringBankServiceRandomResponse : IAcquiringBankService
     {

@@ -27,8 +27,7 @@ namespace API.Controllers
             _commandBus = rootResolver.Resolve<ICommandBus>();
             _queryProcessor = rootResolver.Resolve<IQueryProcessor>();
         }
-
-        // GET api/payments
+        
         [HttpPost]
         [Consumes(PaymentRequest.MediaType)]
         public async Task<IActionResult> Post([FromBody] PaymentRequest request)
@@ -57,8 +56,7 @@ namespace API.Controllers
             return Created(paymentInformation.Links.self_href, paymentInformation);
 
         }
-
-        // GET api/payments/5
+        
         [HttpGet("{paymentId}")]
         public async Task<IActionResult> Get(string paymentId)
         {

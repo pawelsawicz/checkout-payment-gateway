@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using API.Domain;
 using API.Services;
+using API.Services.FakeAcquiringBankImpls;
 using Xunit;
 
 namespace API.Tests.Domain
