@@ -38,9 +38,9 @@ namespace API.Tests.Domain
 
                 // assert
                 Assert.Equal(typeof(PaymentInformation), result.GetType());
-                Assert.NotEmpty(result.AcquiringBankPaymentResponse.BankIdentifier);
-                Assert.NotEmpty(result.AcquiringBankPaymentResponse.PaymentStatus);
-                Assert.Equal("Approved", result.AcquiringBankPaymentResponse.PaymentStatus);
+                Assert.NotEmpty(result.PaymentStatus.BankIdentifier);
+                Assert.NotEmpty(result.PaymentStatus.PaymentStatusCode);
+                Assert.Equal("Approved", result.PaymentStatus.PaymentStatusCode);
                 Assert.Equal($"http://localhost:5000/api/payments/{exampleId.Value}", result.Links.self_href);
             }
         }
@@ -71,9 +71,9 @@ namespace API.Tests.Domain
 
                 // assert
                 Assert.Equal(typeof(PaymentInformation), result.GetType());
-                Assert.NotEmpty(result.AcquiringBankPaymentResponse.BankIdentifier);
-                Assert.NotEmpty(result.AcquiringBankPaymentResponse.PaymentStatus);
-                Assert.Equal("Failed", result.AcquiringBankPaymentResponse.PaymentStatus);
+                Assert.NotEmpty(result.PaymentStatus.BankIdentifier);
+                Assert.NotEmpty(result.PaymentStatus.PaymentStatusCode);
+                Assert.Equal("Failed", result.PaymentStatus.PaymentStatusCode);
                 Assert.Equal($"http://localhost:5000/api/payments/{exampleId.Value}", result.Links.self_href);
             }
         }

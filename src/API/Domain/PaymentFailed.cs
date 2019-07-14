@@ -1,15 +1,14 @@
-using API.Services;
 using EventFlow.Aggregates;
 
 namespace API.Domain
 {
     public class PaymentFailed : AggregateEvent<PaymentAggregate, PaymentId>
     {
-        public PaymentFailed(AcquiringBankPaymentResponse acquiringBankPaymentResponse)
+        public PaymentFailed(PaymentStatus paymentStatus)
         {
-            AcquiringBankPaymentResponse = acquiringBankPaymentResponse;
+            PaymentStatus = paymentStatus;
         }
 
-        public AcquiringBankPaymentResponse AcquiringBankPaymentResponse { get; }
+        public PaymentStatus PaymentStatus { get; }
     }
 }

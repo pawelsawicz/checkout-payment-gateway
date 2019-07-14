@@ -1,6 +1,5 @@
 using System.Linq;
 using API.Domain;
-using API.Services;
 using EventFlow.Exceptions;
 using Xunit;
 
@@ -14,10 +13,10 @@ namespace API.Tests.Domain
         {
             // arrange
             var paymentAggregate = new PaymentAggregate(PaymentId.New);
-            var bankPaymentResponse = new AcquiringBankPaymentResponse();
+            var paymentStatus = new PaymentStatus();
             
             // act
-            paymentAggregate.SetPaymentSuccessful(bankPaymentResponse);
+            paymentAggregate.SetPaymentSuccessful(paymentStatus);
 
             // assert
             Assert.NotNull(paymentAggregate.UncommittedEvents.Single(x =>
@@ -29,10 +28,10 @@ namespace API.Tests.Domain
         {
             // arrange
             var paymentAggregate = new PaymentAggregate(PaymentId.New);
-            var bankPaymentResponse = new AcquiringBankPaymentResponse();
+            var paymentStatus = new PaymentStatus();
 
             // act
-            paymentAggregate.SetPaymentFailed(bankPaymentResponse);
+            paymentAggregate.SetPaymentFailed(paymentStatus);
             
             // assert
             Assert.NotNull(paymentAggregate.UncommittedEvents.Single(x =>
@@ -44,12 +43,12 @@ namespace API.Tests.Domain
         {
             // arrange
             var paymentAggregate = new PaymentAggregate(PaymentId.New);
-            var bankPaymentResponse = new AcquiringBankPaymentResponse();
-            paymentAggregate.SetPaymentFailed(bankPaymentResponse);
+            var paymentStatus = new PaymentStatus();
+            paymentAggregate.SetPaymentFailed(paymentStatus);
 
             // act
             var domainError = Assert.Throws<DomainError>(
-                () => paymentAggregate.SetPaymentFailed(bankPaymentResponse));
+                () => paymentAggregate.SetPaymentFailed(paymentStatus));
             
             // assert
             Assert.Equal("Payment has been already processed", domainError.Message);
@@ -60,12 +59,12 @@ namespace API.Tests.Domain
         {
             // arrange
             var paymentAggregate = new PaymentAggregate(PaymentId.New);
-            var bankPaymentResponse = new AcquiringBankPaymentResponse();
-            paymentAggregate.SetPaymentSuccessful(bankPaymentResponse);
+            var paymentStatus = new PaymentStatus();
+            paymentAggregate.SetPaymentSuccessful(paymentStatus);
 
             // act
             var domainError = Assert.Throws<DomainError>(
-                () => paymentAggregate.SetPaymentSuccessful(bankPaymentResponse));
+                () => paymentAggregate.SetPaymentSuccessful(paymentStatus));
             
             // assert
             Assert.Equal("Payment has been already processed", domainError.Message);

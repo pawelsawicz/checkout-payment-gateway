@@ -1,5 +1,4 @@
 using System;
-using API.Services;
 using EventFlow.Aggregates;
 using EventFlow.ReadStores;
 
@@ -9,9 +8,9 @@ namespace API.Domain
         IAmReadModelFor<PaymentAggregate, PaymentId, PaymentSucceeded>,
         IAmReadModelFor<PaymentAggregate, PaymentId, PaymentFailed>
     {
-        public PaymentId paymentId { get; private set; }
+        public PaymentId PaymentId { get; private set; }
         
-        public AcquiringBankPaymentResponse AcquiringBankPaymentResponse { get; private set; }
+        public PaymentStatus PaymentStatus { get; private set; }
         
         public Links Links { get; private set; }
         
@@ -19,18 +18,18 @@ namespace API.Domain
             IReadModelContext context,
             IDomainEvent<PaymentAggregate, PaymentId, PaymentSucceeded> domainEvent)
         {
-            paymentId = domainEvent.AggregateIdentity;
-            AcquiringBankPaymentResponse = domainEvent.AggregateEvent.AcquiringBankPaymentResponse;
-            Links = ToLinks(paymentId);
+            PaymentId = domainEvent.AggregateIdentity;
+            PaymentStatus = domainEvent.AggregateEvent.PaymentStatus;
+            Links = ToLinks(PaymentId);
         }
 
         public void Apply(
             IReadModelContext context,
             IDomainEvent<PaymentAggregate, PaymentId, PaymentFailed> domainEvent)
         {
-            paymentId = domainEvent.AggregateIdentity;
-            AcquiringBankPaymentResponse = domainEvent.AggregateEvent.AcquiringBankPaymentResponse;
-            Links = ToLinks(paymentId);
+            PaymentId = domainEvent.AggregateIdentity;
+            PaymentStatus = domainEvent.AggregateEvent.PaymentStatus;
+            Links = ToLinks(PaymentId);
         }
 
         private Links ToLinks(PaymentId paymentId)

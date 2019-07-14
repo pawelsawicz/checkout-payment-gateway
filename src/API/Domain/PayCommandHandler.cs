@@ -18,15 +18,30 @@ namespace API.Domain
             PayCommand command,
             CancellationToken cancellationToken)
         {
-            var bankPaymentResponse = await _acquiringBankService.ProcessPayment(command.AcquiringBankPaymentRequest);
+            var bankPaymentResponse = await _acquiringBankService.ProcessPayment(command.PaymentRequest);
+            var paymentStatus = CreatePaymentStatus(command.PaymentRequest, bankPaymentResponse);
             if (bankPaymentResponse.PaymentStatus == "Approved")
             {
-                aggregate.SetPaymentSuccessful(bankPaymentResponse);
+                aggregate.SetPaymentSuccessful(paymentStatus);
             }
             else
             {
-                aggregate.SetPaymentFailed(bankPaymentResponse);
+                aggregate.SetPaymentFailed(paymentStatus);
             }
         }
+
+        private PaymentStatus CreatePaymentStatus(
+            AcquiringBankPaymentRequest request,
+            AcquiringBankPaymentResponse response) => new PaymentStatus
+        {
+            BankIdentifier = response.BankIdentifier,
+            PaymentStatusCode = response.PaymentStatus,
+            CardNumber = request.CardNumber,
+            ExpiryMonth = request.ExpiryMonth,
+            ExpiryDate = request.ExpiryDate,
+            Name = request.Name,
+            Amount = request.Amount,
+            CurrencyCode = request.CurrencyCode
+        };
     }
 }

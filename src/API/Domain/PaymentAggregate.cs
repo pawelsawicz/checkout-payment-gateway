@@ -1,4 +1,3 @@
-using API.Services;
 using EventFlow.Aggregates;
 using EventFlow.Exceptions;
 
@@ -7,18 +6,18 @@ namespace API.Domain
     public class PaymentAggregate : AggregateRoot<PaymentAggregate, PaymentId>
     {
 
-        private AcquiringBankPaymentResponse _acquiringBankPaymentResponse;
+        private PaymentStatus _paymentStatus;
         
         public PaymentAggregate(PaymentId id) : base(id)
         {
         }
 
-        public void SetPaymentSuccessful(AcquiringBankPaymentResponse acquiringBankPaymentResponse)
+        public void SetPaymentSuccessful(PaymentStatus paymentStatus)
         {
-            if (_acquiringBankPaymentResponse == null)
+            if (_paymentStatus == null)
             {
-                _acquiringBankPaymentResponse = acquiringBankPaymentResponse;
-                Emit(new PaymentSucceeded(acquiringBankPaymentResponse));
+                _paymentStatus = paymentStatus;
+                Emit(new PaymentSucceeded(paymentStatus));
             }
             else
             {
@@ -26,12 +25,12 @@ namespace API.Domain
             }
         }
 
-        public void SetPaymentFailed(AcquiringBankPaymentResponse acquiringBankPaymentResponse)
+        public void SetPaymentFailed(PaymentStatus paymentStatus)
         {
-            if (_acquiringBankPaymentResponse == null)
+            if (_paymentStatus == null)
             {
-                _acquiringBankPaymentResponse = acquiringBankPaymentResponse;
-                Emit(new PaymentFailed(acquiringBankPaymentResponse));
+                _paymentStatus = paymentStatus;
+                Emit(new PaymentFailed(paymentStatus));
             }
             else
             {
@@ -41,12 +40,12 @@ namespace API.Domain
 
         public void Apply(PaymentSucceeded paymentSucceeded)
         {
-            _acquiringBankPaymentResponse = paymentSucceeded.AcquiringBankPaymentResponse;
+            _paymentStatus = paymentSucceeded.PaymentStatus;
         }
 
         public void Apply(PaymentFailed paymentFailed)
         {
-            _acquiringBankPaymentResponse = paymentFailed.AcquiringBankPaymentResponse;
+            _paymentStatus = paymentFailed.PaymentStatus;
         }
     }
 }
