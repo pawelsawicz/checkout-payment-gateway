@@ -44,7 +44,7 @@ namespace API.Tests.Domain
             ExpiryMonth = 8,
             ExpiryDate = 2019,
             Amount = 2000,
-            Name = "Bob Tarski",
+            Name = "Alfred Tarski",
             CurrencyCode = "USD",
             Cvv = 966
         };

@@ -37,6 +37,7 @@ namespace API.Tests.Domain
                 Assert.NotEmpty(result.bankPaymentResponse.BankIdentifier);
                 Assert.NotEmpty(result.bankPaymentResponse.PaymentStatus);
                 Assert.Equal("Approved", result.bankPaymentResponse.PaymentStatus);
+                Assert.Equal($"http://localhost:5000/payments/{exampleId.Value}", result.Links.self_href);
             }
         }
         
@@ -65,6 +66,7 @@ namespace API.Tests.Domain
                 Assert.NotEmpty(result.bankPaymentResponse.BankIdentifier);
                 Assert.NotEmpty(result.bankPaymentResponse.PaymentStatus);
                 Assert.Equal("Failed", result.bankPaymentResponse.PaymentStatus);
+                Assert.Equal($"http://localhost:5000/payments/{exampleId.Value}", result.Links.self_href);
             }
         }
 
@@ -74,7 +76,7 @@ namespace API.Tests.Domain
             ExpiryMonth = 8,
             ExpiryDate = 2019,
             Amount = 2000,
-            Name = "Bob Tarski",
+            Name = "Alfred Tarski",
             CurrencyCode = "USD",
             Cvv = 966
         };

@@ -1,3 +1,4 @@
+using System;
 using API.Services;
 using EventFlow.Aggregates;
 using EventFlow.ReadStores;
@@ -12,12 +13,15 @@ namespace API.Domain
         
         public BankPaymentResponse bankPaymentResponse { get; private set; }
         
+        public Links Links { get; private set; }
+        
         public void Apply(
             IReadModelContext context,
             IDomainEvent<PaymentAggregate, PaymentId, PaymentSucceeded> domainEvent)
         {
             paymentId = domainEvent.AggregateIdentity;
             bankPaymentResponse = domainEvent.AggregateEvent.BankPaymentResponse;
+            Links = ToLinks(paymentId);
         }
 
         public void Apply(
@@ -26,6 +30,15 @@ namespace API.Domain
         {
             paymentId = domainEvent.AggregateIdentity;
             bankPaymentResponse = domainEvent.AggregateEvent.BankPaymentResponse;
+            Links = ToLinks(paymentId);
+        }
+
+        private Links ToLinks(PaymentId paymentId)
+        {
+            return new Links
+            {
+                self_href = new Uri($"http://localhost:5000/payments/{paymentId.Value}").ToString()
+            };
         }
     }
 }

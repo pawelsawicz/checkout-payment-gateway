@@ -128,7 +128,7 @@ namespace API.Tests.Controllers
                 cardNumber = "aaaaaaaa";
                 expiryMonth = 1;
                 expiryDate = 2019;
-                name = "Bob Tarski";
+                name = "Alfred Tarski";
                 amount = 2000;
                 currencyCode = "USD";
                 cvv = 259;
