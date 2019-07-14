@@ -9,7 +9,7 @@ namespace API.Domain
         IAmReadModelFor<PaymentAggregate, PaymentId, PaymentSucceeded>,
         IAmReadModelFor<PaymentAggregate, PaymentId, PaymentFailed>
     {
-        public PaymentId PaymentId { get; private set; }
+        public string PaymentId { get; private set; }
         
         public PaymentStatus PaymentStatus { get; private set; }
         
@@ -19,18 +19,18 @@ namespace API.Domain
             IReadModelContext context,
             IDomainEvent<PaymentAggregate, PaymentId, PaymentSucceeded> domainEvent)
         {
-            PaymentId = domainEvent.AggregateIdentity;
-            PaymentStatus = domainEvent.AggregateEvent.PaymentStatus;
-            Links = ToLinks(PaymentId);
+            PaymentId = domainEvent.AggregateIdentity.Value;
+            PaymentStatus = domainEvent.AggregateEvent.PaymentStatus.Mask();
+            Links = ToLinks(domainEvent.AggregateIdentity);
         }
 
         public void Apply(
             IReadModelContext context,
             IDomainEvent<PaymentAggregate, PaymentId, PaymentFailed> domainEvent)
         {
-            PaymentId = domainEvent.AggregateIdentity;
-            PaymentStatus = domainEvent.AggregateEvent.PaymentStatus;
-            Links = ToLinks(PaymentId);
+            PaymentId = domainEvent.AggregateIdentity.Value;
+            PaymentStatus = domainEvent.AggregateEvent.PaymentStatus.Mask();
+            Links = ToLinks(domainEvent.AggregateIdentity);
         }
 
         private Links ToLinks(PaymentId paymentId)

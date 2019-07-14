@@ -1,3 +1,5 @@
+using System;
+
 namespace API.Domain
 {
     public sealed class PaymentStatus
@@ -16,6 +18,15 @@ namespace API.Domain
 
         public decimal Amount { get; set; }
 
-        public string CurrencyCode { get; set; }
+        public string Currency { get; set; }
+
+        public PaymentStatus Mask()
+        {
+            var countToMask = CardNumber.Length - 4;
+            var firstPart = new String('*', countToMask);
+            var lastPart = CardNumber.Substring(countToMask, 4);
+            CardNumber = firstPart + lastPart;
+            return this;
+        }
     }
 }

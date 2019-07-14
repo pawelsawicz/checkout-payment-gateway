@@ -42,7 +42,7 @@ namespace API.Domain
             ExpiryDate = request.ExpiryDate,
             Name = request.Name,
             Amount = request.Amount,
-            CurrencyCode = request.CurrencyCode
+            Currency = request.CurrencyCode
         };
     }
 }
