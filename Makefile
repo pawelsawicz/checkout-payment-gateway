@@ -19,7 +19,7 @@ build: compile
 	docker build -t payment-gateway-api .
 	
 run-locally:
-	dotnet run --project src/API/API.csproj
+	dotnet build && dotnet run --project src/API/API.csproj
 	
 run-container-locally: build
 	docker run -d payment-gateway-api .
@@ -39,6 +39,14 @@ compose-with-monitoring-clean:
 
 compose-with-monitoring: compose-with-monitoring-clean
 	docker-compose -f docker-compose-with-monitoring.yml up --force-recreate -d
+	
+## Performance tests
+
+perf-payments-get:
+	k6 run ./performance-tests/payments-get.js --max=1 -i=1 --insecure-skip-tls-verify
+	
+perf-payments-post:
+	k6 run ./performance-tests/payments-post.js --max=1 -i=1 --insecure-skip-tls-verify
 	
 ## Used by CI
 

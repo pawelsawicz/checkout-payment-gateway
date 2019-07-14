@@ -4,6 +4,8 @@ namespace API.Models
 {
     public sealed class PaymentRequest
     {
+        public const string MediaType = "application/json";
+        
         [Required]
         public string CardNumber { get; set; }
 

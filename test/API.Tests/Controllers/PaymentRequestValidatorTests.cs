@@ -1,4 +1,5 @@
 using API.Models;
+using CreditCardValidator;
 using Shouldly;
 using Xunit;
 
@@ -11,6 +12,16 @@ namespace API.Tests.Controllers
         public PaymentRequestValidatorTests()
         {
             sut = new PaymentRequestValidator();
+        }
+        
+        [Fact]
+        public void WhenCorrectDataThenValidationPasses()
+        {
+            var request = new PaymentRequestBuilder().Build();
+            
+            var result = sut.Validate(request);
+
+            result.IsValid.ShouldBeTrue();
         }
 
         [Theory]
@@ -95,7 +106,7 @@ namespace API.Tests.Controllers
         
         [Theory]
         [InlineData(99)]
-        [InlineData(1000)]
+        [InlineData(10000)]
         public void CvvMustBeBetween100and999(int cvv)
         {
             var request = new PaymentRequestBuilder()
@@ -125,7 +136,7 @@ namespace API.Tests.Controllers
 
             public PaymentRequestBuilder()
             {
-                cardNumber = "aaaaaaaa";
+                cardNumber = CreditCardFactory.RandomCardNumber(CardIssuer.Visa);
                 expiryMonth = 1;
                 expiryDate = 2019;
                 name = "Alfred Tarski";

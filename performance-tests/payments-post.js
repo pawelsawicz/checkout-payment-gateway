@@ -4,9 +4,9 @@ export default function() {
     var url = "http://localhost:5000/api/payments";
     var payload = JSON.stringify(
         { 
-            CardNumber: "aaa",
+            CardNumber: "aaaaaa",
             ExpiryMonth: 6,
-            ExpiryDate: 2016,
+            ExpiryDate: 2019,
             Name: "aaaaa",
             Amount: 2000,
             CurrencyCode: "USD",
