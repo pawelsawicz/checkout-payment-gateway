@@ -97,6 +97,31 @@ Extra mile bonus points (please see the [commentary](/docs/bonus-points.md))
 - [x] Create infrastructure diagram
 - [ ] Add screenshoot of the CI
 
+### Coding
+
+- [ ] Introduce Payment Aggregate
+    - [ ] Acquiring Bank Payment Response (guard against two responses)
+- [ ] Introduce Pay Command
+    - [ ] Acquiring Bank Payment Request
+- [ ] Introduce PaymentSucceeded Event
+    - [ ] Acquiring Bank Payment Response
+- [ ] Introduce PaymentFailed Event
+    - [ ] Acquiring Bank Payment Response
+- [ ] Introduce Payment Information Read Model
+    - [ ] Masked card number
+    - [ ] Card details
+    - [ ] Payment details
+    - [ ] Status code for the payment
+    - [ ] Links
+
+### Test coverage
+
+- [ ] Tests for Payment Aggregate state changes
+- [ ] Tests for Pay Command Handler
+- [ ] Tests for Payment Information Read Model
+
+- [ ] Test for controller
+
 
 ### Infrasturcture diagram
 

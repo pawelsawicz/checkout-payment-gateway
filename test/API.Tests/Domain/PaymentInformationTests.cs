@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using API.Domain;
@@ -25,7 +26,7 @@ namespace API.Tests.Domain
                 var exampleId = PaymentId.New;
                 var commandBus = resolver.Resolve<ICommandBus>();
 
-                await commandBus.PublishAsync(new PayCommand(exampleId), CancellationToken.None);
+                await commandBus.PublishAsync(new PayCommand(exampleId, CreateRequest()), CancellationToken.None);
 
                 var queryProcessor = resolver.Resolve<IQueryProcessor>();
                 var result = await queryProcessor.ProcessAsync(
@@ -53,7 +54,7 @@ namespace API.Tests.Domain
                 var exampleId = PaymentId.New;
                 var commandBus = resolver.Resolve<ICommandBus>();
 
-                await commandBus.PublishAsync(new PayCommand(exampleId), CancellationToken.None);
+                await commandBus.PublishAsync(new PayCommand(exampleId, CreateRequest()), CancellationToken.None);
 
                 var queryProcessor = resolver.Resolve<IQueryProcessor>();
                 var result = await queryProcessor.ProcessAsync(
@@ -66,5 +67,16 @@ namespace API.Tests.Domain
                 Assert.Equal("Failed", result.bankPaymentResponse.PaymentStatus);
             }
         }
+
+        private BankPaymentRequest CreateRequest() => new BankPaymentRequest
+        {
+            CardNumber = Guid.NewGuid().ToString(),
+            ExpiryMonth = 8,
+            ExpiryDate = 2019,
+            Amount = 2000,
+            Name = "Bob Tarski",
+            CurrencyCode = "USD",
+            Cvv = 966
+        };
     }
 }
