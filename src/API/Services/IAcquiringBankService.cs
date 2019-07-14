@@ -4,6 +4,6 @@ namespace API.Services
 {
     public interface IAcquiringBankService
     {
-        Task<BankPaymentResponse> ProcessPayment();
+        Task<BankPaymentResponse> ProcessPayment(BankPaymentRequest bankPaymentRequest);
     }
 }

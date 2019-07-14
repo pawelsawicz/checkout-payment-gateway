@@ -40,7 +40,7 @@ namespace API.Tests.Domain
                 Assert.NotEmpty(result.bankPaymentResponse.BankIdentifier);
                 Assert.NotEmpty(result.bankPaymentResponse.PaymentStatus);
                 Assert.Equal("Approved", result.bankPaymentResponse.PaymentStatus);
-                Assert.Equal($"http://localhost:5000/payments/{exampleId.Value}", result.Links.self_href);
+                Assert.Equal($"http://localhost:5000/api/payments/{exampleId.Value}", result.Links.self_href);
             }
         }
         
@@ -73,7 +73,7 @@ namespace API.Tests.Domain
                 Assert.NotEmpty(result.bankPaymentResponse.BankIdentifier);
                 Assert.NotEmpty(result.bankPaymentResponse.PaymentStatus);
                 Assert.Equal("Failed", result.bankPaymentResponse.PaymentStatus);
-                Assert.Equal($"http://localhost:5000/payments/{exampleId.Value}", result.Links.self_href);
+                Assert.Equal($"http://localhost:5000/api/payments/{exampleId.Value}", result.Links.self_href);
             }
         }
 

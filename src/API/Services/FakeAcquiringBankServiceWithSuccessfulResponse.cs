@@ -5,7 +5,7 @@ namespace API.Services
 {
     public class FakeAcquiringBankServiceWithSuccessfulResponse : IAcquiringBankService
     {
-        public Task<BankPaymentResponse> ProcessPayment()
+        public Task<BankPaymentResponse> ProcessPayment(BankPaymentRequest bankPaymentRequest)
         {
             return Task.FromResult(new BankPaymentResponse
             {

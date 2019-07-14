@@ -1,3 +1,4 @@
+using System;
 using API.Models;
 using CreditCardValidator;
 using Shouldly;
@@ -30,6 +31,18 @@ namespace API.Tests.Controllers
         {
             var request = new PaymentRequestBuilder()
                 .WithCardNumber(cardNumber)
+                .Build();
+            
+            var result = sut.Validate(request);
+
+            result.IsValid.ShouldBeFalse();
+        }
+        
+        [Fact]
+        public void CardNumberMustContainNumbers()
+        {
+            var request = new PaymentRequestBuilder()
+                .WithCardNumber(Guid.NewGuid().ToString())
                 .Build();
             
             var result = sut.Validate(request);

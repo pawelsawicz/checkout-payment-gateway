@@ -4,7 +4,7 @@ namespace API.Services
 {
     public class AcquiringBankService : IAcquiringBankService
     {
-        public Task<BankPaymentResponse> ProcessPayment()
+        public Task<BankPaymentResponse> ProcessPayment(BankPaymentRequest bankPaymentRequest)
         {
             throw new System.NotImplementedException();
         }

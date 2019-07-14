@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using CreditCardValidator;
 using FluentValidation;
 using FluentValidation.Validators;
@@ -15,7 +16,7 @@ namespace API.Models
 
             RuleFor(r => r.CardNumber)
                 .NotEmpty()
-                .SetValidator(new CardNumberValidator("Card Number is not valid"));
+                .SetValidator(new CardNumberValidator());
             RuleFor(r => r.ExpiryMonth)
                 .NotEmpty()
                 .InclusiveBetween(1, 12);
@@ -41,7 +42,8 @@ namespace API.Models
 
         private class CardNumberValidator : PropertyValidator
         {
-            public CardNumberValidator(string errorMessage) : base(errorMessage)
+            public CardNumberValidator() : 
+                base("Card Number is not valid")
             {
             }
 
@@ -52,6 +54,12 @@ namespace API.Models
                 {
                     return false;
                 }
+
+                if (!cardNumber.All(char.IsDigit))
+                {
+                    return false; 
+                }
+                
                 var detector = new CreditCardDetector(cardNumber);
                 return detector.IsValid();
             }

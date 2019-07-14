@@ -1,4 +1,9 @@
-﻿using FluentValidation.AspNetCore;
+﻿using API.Domain;
+using API.Services;
+using EventFlow;
+using EventFlow.Configuration;
+using EventFlow.Extensions;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +31,14 @@ namespace API
                 .AddFluentValidation(o => o.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services.AddCors();
+
+            services.AddSingleton(EventFlowOptions.New
+                .AddEvents(typeof(PaymentSucceeded), typeof(PaymentFailed))
+                .AddCommandHandlers(typeof(PayCommandHandler))
+                .UseInMemoryReadStoreFor<PaymentInformation>()
+                .RegisterServices(registration =>
+                    registration.Register<IAcquiringBankService, FakeAcquiringBankServiceRandomResponse>())
+                .CreateResolver());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

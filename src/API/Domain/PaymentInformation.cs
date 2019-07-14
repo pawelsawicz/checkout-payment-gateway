@@ -37,7 +37,7 @@ namespace API.Domain
         {
             return new Links
             {
-                self_href = new Uri($"http://localhost:5000/payments/{paymentId.Value}").ToString()
+                self_href = new Uri($"http://localhost:5000/api/payments/{paymentId.Value}").ToString()
             };
         }
     }
