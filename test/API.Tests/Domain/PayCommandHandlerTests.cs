@@ -14,7 +14,7 @@ namespace API.Tests.Domain
     public class PayCommandHandlerTests
     {
         [Fact]
-        public async Task GivenPayCommandHandlerWhenPaymentIsApprovedThenChangeAggregateToSuccessful()
+        public async Task GivenPayCommandWhenCommandIsExecutedThenEmitsPaymentSucceededIsEmitted()
         {
             // arrange
             var commandHandler = new PayCommandHandler(new FakeAcquiringBankServiceWithSuccessfulResponse());
@@ -31,7 +31,7 @@ namespace API.Tests.Domain
         }
         
         [Fact]
-        public async Task GivenPayCommandHandlerWhenPaymentIsFailedThenChangeAggregateToFailed()
+        public async Task GivenPayCommandWhenCommandIsExecutedThenPaymentFailedIsEmitted()
         {
             // arrange
             var commandHandler = new PayCommandHandler(new FakeAcquiringBankServiceWithFailedResponse());

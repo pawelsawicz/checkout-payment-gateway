@@ -13,7 +13,7 @@ namespace API.Domain
         {
         }
 
-        public void SetPaymentSuccessful(PaymentStatus paymentStatus)
+        public void SuccessPayment(PaymentStatus paymentStatus)
         {
             if (_paymentStatus == null)
             {
@@ -26,7 +26,7 @@ namespace API.Domain
             }
         }
 
-        public void SetPaymentFailed(PaymentStatus paymentStatus)
+        public void FailPayment(PaymentStatus paymentStatus)
         {
             if (_paymentStatus == null)
             {

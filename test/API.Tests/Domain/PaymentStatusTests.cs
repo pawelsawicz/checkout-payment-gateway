@@ -1,4 +1,5 @@
 using API.Domain;
+using Shouldly;
 using Xunit;
 
 namespace API.Tests.Domain
@@ -13,9 +14,9 @@ namespace API.Tests.Domain
                 CardNumber = "4698050763557349"
             };
 
-            Assert.Equal("************7349", paymentStatus.Mask().CardNumber);
+            paymentStatus.Mask().CardNumber.ShouldBe("************7349");
         }
-        
+
         [Fact]
         public void MaskMethodIsIdempotent()
         {
@@ -24,7 +25,7 @@ namespace API.Tests.Domain
                 CardNumber = "4698050763557349"
             }.Mask();
 
-            Assert.Equal("************7349", paymentStatus.Mask().CardNumber);
+            paymentStatus.Mask().CardNumber.ShouldBe("************7349");
         }
     }
 }

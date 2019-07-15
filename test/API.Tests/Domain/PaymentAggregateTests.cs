@@ -10,14 +10,14 @@ namespace API.Tests.Domain
     {
 
         [Fact]
-        public void GivenInitialStateWhenSetApprovedPaymentThenEventIsEmitted()
+        public void GivenInitialStateWhenSuccessPaymentThenPaymentSucceededIsEmitted()
         {
             // arrange
             var paymentAggregate = new PaymentAggregate(PaymentId.New);
             var paymentStatus = new PaymentStatus();
             
             // act
-            paymentAggregate.SetPaymentSuccessful(paymentStatus);
+            paymentAggregate.SuccessPayment(paymentStatus);
 
             // assert
             Assert.NotNull(paymentAggregate.UncommittedEvents.Single(x =>
@@ -25,14 +25,14 @@ namespace API.Tests.Domain
         }
         
         [Fact]
-        public void GivenBankPaymentResponseWhenSetPaymentFailedThenEventIsEmitted()
+        public void GivenInitialStateWhenFailPaymentThenPaymentFailedIsEmitted()
         {
             // arrange
             var paymentAggregate = new PaymentAggregate(PaymentId.New);
             var paymentStatus = new PaymentStatus();
 
             // act
-            paymentAggregate.SetPaymentFailed(paymentStatus);
+            paymentAggregate.FailPayment(paymentStatus);
             
             // assert
             Assert.NotNull(paymentAggregate.UncommittedEvents.Single(x =>
@@ -40,32 +40,32 @@ namespace API.Tests.Domain
         }
         
         [Fact]
-        public void GivenBankPaymentResponseWhenSetPaymentFailedTwiceThenDomainExceptionIsThrown()
+        public void GivenInitialStateWhenFailPaymentInvokedTwiceThrowsDomainException()
         {
             // arrange
             var paymentAggregate = new PaymentAggregate(PaymentId.New);
             var paymentStatus = new PaymentStatus();
-            paymentAggregate.SetPaymentFailed(paymentStatus);
+            paymentAggregate.FailPayment(paymentStatus);
 
             // act
             var domainError = Assert.Throws<DomainError>(
-                () => paymentAggregate.SetPaymentFailed(paymentStatus));
+                () => paymentAggregate.FailPayment(paymentStatus));
             
             // assert
             Assert.Equal("Payment has been already processed", domainError.Message);
         }
         
         [Fact]
-        public void GivenBankPaymentResponseWhenSetPaymentSetPaymentSuccessfulTwiceThenDomainExceptionIsThrown()
+        public void GivenInitialStateWhenSuccessPaymentInvokedTwiceThrowsDomainException()
         {
             // arrange
             var paymentAggregate = new PaymentAggregate(PaymentId.New);
             var paymentStatus = new PaymentStatus();
-            paymentAggregate.SetPaymentSuccessful(paymentStatus);
+            paymentAggregate.SuccessPayment(paymentStatus);
 
             // act
             var domainError = Assert.Throws<DomainError>(
-                () => paymentAggregate.SetPaymentSuccessful(paymentStatus));
+                () => paymentAggregate.SuccessPayment(paymentStatus));
             
             // assert
             Assert.Equal("Payment has been already processed", domainError.Message);

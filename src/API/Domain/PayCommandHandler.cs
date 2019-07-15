@@ -23,11 +23,11 @@ namespace API.Domain
             var paymentStatus = CreatePaymentStatus(command.PaymentRequest, bankPaymentResponse);
             if (bankPaymentResponse.PaymentStatus == "Approved")
             {
-                aggregate.SetPaymentSuccessful(paymentStatus);
+                aggregate.SuccessPayment(paymentStatus);
             }
             else
             {
-                aggregate.SetPaymentFailed(paymentStatus);
+                aggregate.FailPayment(paymentStatus);
             }
         }
 
