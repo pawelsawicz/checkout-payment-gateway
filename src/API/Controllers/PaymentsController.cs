@@ -70,9 +70,16 @@ namespace API.Controllers
 
             try
             {
-                var view = await _queryProcessor.ProcessAsync(new ReadModelByIdQuery<PaymentInformationReadModel>(paymentId),
+                var paymentInformation = await _queryProcessor.ProcessAsync(
+                    new ReadModelByIdQuery<PaymentInformationReadModel>(paymentId),
                     CancellationToken.None);
-                return Ok(view);
+
+                if (paymentInformation == null)
+                {
+                    return NotFound();
+                }
+                
+                return Ok(paymentInformation);
             }
             catch (Exception ex)
             {

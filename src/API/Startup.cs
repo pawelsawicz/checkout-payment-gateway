@@ -44,13 +44,6 @@ namespace API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                /*app.UseStaticFiles();
-                app.UseDefaultFiles();
-                app.UseSwagger();
-                app.UseSwaggerUI(options =>
-                {
-                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Payments Gateway Swagger");
-                });*/
             }
             else
             {

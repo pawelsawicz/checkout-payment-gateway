@@ -32,7 +32,7 @@ namespace API.Tests.Controllers
         }
         
         [Fact]
-        public async Task GivenValidPaymentIdWhenGetThen200StatusCodeWithPayment()
+        public async Task GivenValidPaymentIdWhenGetThenReturns200StatusCodeWithPayment()
         {
             //arrange
             var paymentRequest = CreateValidRequest();
@@ -40,13 +40,15 @@ namespace API.Tests.Controllers
             var created = postResult.ShouldBeAssignableTo<CreatedResult>()
                 .Value.ShouldBeAssignableTo<PaymentInformationReadModel>();
 
+            // act
             var getResult = await sut.Get(created.PaymentId);
 
+            // assert
             getResult.ShouldBeAssignableTo<OkObjectResult>();
         }
 
         [Fact]
-        public async Task GivenValidDataWhenPostThen201StatusCodeWithCreatedPayment()
+        public async Task GivenValidDataWhenPostThenReturns201StatusCodeWithCreatedPayment()
         {
             // arrange
             var paymentRequest = CreateValidRequest();
@@ -75,7 +77,7 @@ namespace API.Tests.Controllers
         }
 
         [Fact]
-        public async Task GivenInvalidDataWhenPostThen400StatusCode()
+        public async Task GivenInvalidDataWhenPostThenReturns400StatusCode()
         {
             // arrange
             var paymentRequest = CreateInvalidRequest();
@@ -86,6 +88,15 @@ namespace API.Tests.Controllers
             
             // assert
             result.ShouldBeAssignableTo<BadRequestObjectResult>();
+        }
+
+        [Fact]
+        public async Task GivenInvalidPaymentWhenGetThenReturns404StatusCode()
+        {
+            var getResult = await sut.Get(Guid.NewGuid().ToString());
+
+            
+            getResult.ShouldBeAssignableTo<NotFoundResult>();
         }
         
         private string Mask(string cardNumber)

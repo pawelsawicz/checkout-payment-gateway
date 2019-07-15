@@ -7,18 +7,14 @@ namespace API
 {
     public class Program
     {
-        private readonly string ApplicationName = "payment-gateway-api";
-
-        private readonly string ApplicationVersion = "0.0.1";
-        
-        public static int Main(string[] args)
+        public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
                 .MinimumLevel.Information()
                 .WriteTo.Console(
                     outputTemplate:
-                    "{NewLine}{Timestamp:HH:mm:ss} [{Level}] ({CorrelationToken}) {Message}{NewLine}{Exception}")
+                    "{NewLine}{Timestamp:HH:mm:ss} [{Level}] {Message}{NewLine}{Exception}")
                 .CreateLogger();
 
             try
@@ -30,7 +26,6 @@ namespace API
                     .UseSerilog()
                     .ConfigureAppConfiguration(x=>
                     {
-                        x.AddEnvironmentVariables();
                         x.AddJsonFile("appsettings.json");
                     })
                     .Build();
@@ -39,17 +34,13 @@ namespace API
             }
             catch (Exception ex)
             {
-                Log.Fatal("Application has been closed unexpectedly");
-                Log.Fatal(ex.ToString());
-                return 1;
+                Log.Fatal("Application has been closed unexpectedly - {Message}", ex.Message);
             }
             finally
             {
                 Log.Information("Application is exiting...");
                 Log.CloseAndFlush();
             }
-
-            return 0;
         }
     }
 }
