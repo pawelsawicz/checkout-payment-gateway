@@ -22,7 +22,7 @@
 - [Coding commentary](#coding-commentary)
 - [My TODO list](/docs/todo-list.md)
 
-## Buissnes Summary
+## Buissnes Summary 
 
 Key actors of this service:
 
