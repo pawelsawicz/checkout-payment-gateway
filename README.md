@@ -32,7 +32,7 @@ Key actors of this service:
 
 This service is responsible for:
 
-1. Reciving a payment from merchant's customer and forwarding the payment to a acquiring bank.
+1. Reciving a payment from merchant and forwarding the payment to a acquiring bank.
 2. Providing information about a payment for a merchant
 
 ![service-overview](/docs/service-overview.jpg)
@@ -54,17 +54,20 @@ Technology stack:
  - Metrics collector: Prometheus
  - Bunch of libs.
  - Docker
+ - There are elements of DDD
  
  ### Assertion
  
  #### What I have done:
  
  - Exploring domain
+ - Exploring business requirements
  - Modeling domain via [event modeling](/docs/event-modeling.md)
  - Translate modelled domain into code
  - What would be the next step for the platform
  - Searching for the pitfalls
  - Create infrastructure architecture
+ - Writing tests
  
  In order to run and assert my submission:
  
@@ -78,6 +81,18 @@ Technology stack:
  4. If you would like to send HTTP request manually, then `make run-locally`. 
  Load `postman` collection from `./postman/Payments.postman_collection.json`
     1. There is just `POST` method, as results of `POST` returns a link to the get method.
+
+Once you run `make assert-submission`. Following names will be aviable for you:
+
+- API - http://localhost:5000/
+- Prometheus - http://localhost:9090
+- Grafana - http://localhost:3000/
+
+#### Missing pieces
+
+I did not introduce them, to keep this solution reasonable simple and readable.
+
+- I should have introduce Value Objects for `Card Number`
 
 ## Business Deliverables
 
@@ -107,8 +122,17 @@ Extra mile bonus points (please see the [commentary](/docs/bonus-points.md))
 
 ## Infrasturcture architecture commentary
 
+Some initial ideas about infrastructure architecture. 
+We can discuss in depth on F2F stage
+
+### Startup solution
+
 ![startup-1](/docs/startup-solution.jpg)
 
+### Mature startup (first problems with scale)
+
 ![startup-1](/docs/mature-startup-solution.jpg)
+
+### Mature company (when vertical scaling is not an option)
 
 ![startup-1](/docs/mature-company-solution.jpg)

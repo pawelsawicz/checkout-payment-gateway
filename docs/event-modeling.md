@@ -37,7 +37,7 @@ Risks:
 - Coupled systems: *payment gateway* and *acquiring bank*, *payment gateway* needs to 
 physically awaits for the callback from the *acquiring bank*.
 
-Situations to consider, when this architecture could be helpful:
+Situations to consider, when this architecture could be implemented:
 - Early stage company
 - Read/Write is not a problem
 - Vertical scaling is still an option 
@@ -47,24 +47,24 @@ Situations to consider, when this architecture could be helpful:
 
 ## Payment Gateway (CQRS version)
 
-This diagram represents version when we would like to achieve decoupling and support for heavy writes.
-**Assuming** that initial version was implemented as proposed above, this evolution (technical) is cheap.
+This diagram represents version if we would like to achieve decoupling and support for heavy writes.
+**Assuming** that initial version was implemented as proposed above, this update (coding-wise) is cheap.
 
 Assumptions:
 - Merchants are fine with eventual consistency
 
 Benefits:
-- Decoupled systems: *payment gateway*, *acquiring bank*. Intention to pay from the actual requesting 
-  *acquiring bank*.
-- Our system does not depend from an *acquiring bank* system, we can stay operational 
-and collect intentions of pay even if *acquiring bank* is offline.
-- Better write throughput, as we don't have to await for callback from an *acquiring bank* system
+- Decoupled systems: *payment gateway* and *acquiring bank*. Intention to pay from the actual forwarding 
+request to   *acquiring bank*.
+- Our system does not depend on *acquiring bank* system, we can stay operational 
+and collect requests even if *acquiring bank* is offline.
+- Better write throughput, as system does not await for callback from an *acquiring bank* system
 
 Risks:
 - Introduce additional complexity to the business
     i.e: what if payment was not authorized despite that customer got the bought item
-- May introduce bad user experiance both for customers and merchants
-- Increased number of calls to customer service
+- It may introduce bad user experience both for customers and merchants
+- Increased number of calls to customer service due to changed behaviour
 
 Situations to consider, when this architecture could be helpful:
 - Huge sales events i.e black friday
