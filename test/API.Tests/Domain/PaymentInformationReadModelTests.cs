@@ -10,6 +10,7 @@ using CreditCardValidator;
 using EventFlow;
 using EventFlow.Extensions;
 using EventFlow.Queries;
+using Shouldly;
 using Xunit;
 
 namespace API.Tests.Domain
@@ -42,15 +43,19 @@ namespace API.Tests.Domain
 
                 // assert
                 var expectedMaskedCardNumber = Mask(bankPaymentRequest.CardNumber);
-                Assert.NotEmpty(result.PaymentStatus.BankIdentifier);
-                Assert.Equal("Approved", result.PaymentStatus.PaymentStatusCode);
-                Assert.Equal(expectedMaskedCardNumber, result.PaymentStatus.CardNumber);
-                Assert.Equal(bankPaymentRequest.ExpiryMonth, result.PaymentStatus.ExpiryMonth);
-                Assert.Equal(bankPaymentRequest.ExpiryDate, result.PaymentStatus.ExpiryDate);
-                Assert.Equal(bankPaymentRequest.Name, result.PaymentStatus.Name);
-                Assert.Equal(bankPaymentRequest.Amount, result.PaymentStatus.Amount);
-                Assert.Equal(bankPaymentRequest.CurrencyCode, result.PaymentStatus.Currency);
-                Assert.Equal($"http://localhost:5000/api/payments/{paymentId.Value}", result.Links.self_href);
+
+                result.ShouldSatisfyAllConditions(
+                    () => result.PaymentStatus.BankIdentifier.ShouldNotBeEmpty(),
+                    () => result.PaymentStatus.PaymentStatusCode.ShouldBe(
+                        FakeAcquiringBankServiceWithSuccessfulResponse.ReturnedStatusCode),
+                    () => result.PaymentStatus.CardNumber.ShouldBe(expectedMaskedCardNumber),
+                    () => result.PaymentStatus.ExpiryMonth.ShouldBe(bankPaymentRequest.ExpiryMonth),
+                    () => result.PaymentStatus.ExpiryDate.ShouldBe(bankPaymentRequest.ExpiryDate),
+                    () => result.PaymentStatus.Name.ShouldBe(bankPaymentRequest.Name),
+                    () => result.PaymentStatus.Amount.ShouldBe(bankPaymentRequest.Amount),
+                    () => result.PaymentStatus.Currency.ShouldBe(bankPaymentRequest.CurrencyCode),
+                    () => result.Links.self_href.ShouldBe($"http://localhost:5000/api/payments/{paymentId.Value}")
+                );
             }
         }
         
@@ -81,15 +86,18 @@ namespace API.Tests.Domain
 
                 // assert
                 var expectedMaskedCardNumber = Mask(bankPaymentRequest.CardNumber);
-                Assert.NotEmpty(result.PaymentStatus.BankIdentifier);
-                Assert.Equal("Failed", result.PaymentStatus.PaymentStatusCode);
-                Assert.Equal(expectedMaskedCardNumber, result.PaymentStatus.CardNumber);
-                Assert.Equal(bankPaymentRequest.ExpiryMonth, result.PaymentStatus.ExpiryMonth);
-                Assert.Equal(bankPaymentRequest.ExpiryDate, result.PaymentStatus.ExpiryDate);
-                Assert.Equal(bankPaymentRequest.Name, result.PaymentStatus.Name);
-                Assert.Equal(bankPaymentRequest.Amount, result.PaymentStatus.Amount);
-                Assert.Equal(bankPaymentRequest.CurrencyCode, result.PaymentStatus.Currency);
-                Assert.Equal($"http://localhost:5000/api/payments/{paymentId.Value}", result.Links.self_href);
+                result.ShouldSatisfyAllConditions(
+                    () => result.PaymentStatus.BankIdentifier.ShouldNotBeEmpty(),
+                    () => result.PaymentStatus.PaymentStatusCode.ShouldBe(
+                        FakeAcquiringBankServiceWithFailedResponse.ReturnedStatusCode),
+                    () => result.PaymentStatus.CardNumber.ShouldBe(expectedMaskedCardNumber),
+                    () => result.PaymentStatus.ExpiryMonth.ShouldBe(bankPaymentRequest.ExpiryMonth),
+                    () => result.PaymentStatus.ExpiryDate.ShouldBe(bankPaymentRequest.ExpiryDate),
+                    () => result.PaymentStatus.Name.ShouldBe(bankPaymentRequest.Name),
+                    () => result.PaymentStatus.Amount.ShouldBe(bankPaymentRequest.Amount),
+                    () => result.PaymentStatus.Currency.ShouldBe(bankPaymentRequest.CurrencyCode),
+                    () => result.Links.self_href.ShouldBe($"http://localhost:5000/api/payments/{paymentId.Value}")
+                );
             }
         }
 
