@@ -4,21 +4,41 @@ namespace API.Domain
 {
     public sealed class PaymentStatus
     {
-        public string BankIdentifier { get; set; }
-        
-        public string PaymentStatusCode { get; set; }
-        
-        public string CardNumber { get; set; }
+        public string BankIdentifier { get; }
 
-        public int ExpiryMonth { get; set; }
+        public string PaymentStatusCode { get; }
 
-        public int ExpiryDate { get; set; }
+        public string CardNumber { get; private set; }
 
-        public string Name { get; set; }
+        public int ExpiryMonth { get; }
 
-        public decimal Amount { get; set; }
+        public int ExpiryDate { get; }
 
-        public string Currency { get; set; }
+        public string Name { get; }
+
+        public decimal Amount { get; }
+
+        public string Currency { get; }
+
+        public PaymentStatus(
+            string bankIdentifier,
+            string paymentStatusCode,
+            string cardNumber,
+            int expiryMonth,
+            int expiryDate,
+            string name,
+            decimal amount,
+            string currency)
+        {
+            BankIdentifier = bankIdentifier;
+            PaymentStatusCode = paymentStatusCode;
+            CardNumber = cardNumber;
+            ExpiryMonth = expiryMonth;
+            ExpiryDate = expiryDate;
+            Name = name;
+            Amount = amount;
+            Currency = currency;
+        }
 
         public PaymentStatus Mask()
         {

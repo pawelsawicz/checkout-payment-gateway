@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using API.Domain.Commands;
@@ -9,11 +10,14 @@ namespace API.Domain
     public class PayCommandHandler : CommandHandler<PaymentAggregate, PaymentId, PayCommand>
     {
         private readonly IAcquiringBankService _acquiringBankService;
-        
+
+        private const string Approved = "Approved";
+
         public PayCommandHandler(IAcquiringBankService acquiringBankService)
         {
             _acquiringBankService = acquiringBankService;
         }
+
         public override async Task ExecuteAsync(
             PaymentAggregate aggregate,
             PayCommand command,
@@ -21,7 +25,7 @@ namespace API.Domain
         {
             var bankPaymentResponse = await _acquiringBankService.ProcessPayment(command.PaymentRequest);
             var paymentStatus = CreatePaymentStatus(command.PaymentRequest, bankPaymentResponse);
-            if (bankPaymentResponse.PaymentStatus == "Approved")
+            if (string.Equals(bankPaymentResponse.PaymentStatus, Approved, StringComparison.InvariantCultureIgnoreCase))
             {
                 aggregate.SuccessPayment(paymentStatus);
             }
@@ -33,16 +37,15 @@ namespace API.Domain
 
         private PaymentStatus CreatePaymentStatus(
             AcquiringBankPaymentRequest request,
-            AcquiringBankPaymentResponse response) => new PaymentStatus
-        {
-            BankIdentifier = response.BankIdentifier,
-            PaymentStatusCode = response.PaymentStatus,
-            CardNumber = request.CardNumber,
-            ExpiryMonth = request.ExpiryMonth,
-            ExpiryDate = request.ExpiryDate,
-            Name = request.Name,
-            Amount = request.Amount,
-            Currency = request.CurrencyCode
-        };
+            AcquiringBankPaymentResponse response) =>
+            new PaymentStatus(
+                response.BankIdentifier,
+                response.PaymentStatus,
+                request.CardNumber,
+                request.ExpiryMonth,
+                request.ExpiryDate,
+                request.Name,
+                request.Amount,
+                request.CurrencyCode);
     }
 }
