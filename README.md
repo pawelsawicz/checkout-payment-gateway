@@ -5,10 +5,10 @@
 ## Table of the content
 
 - [Assertion of this submission](#assertion)
-- [Buissnes Summary](#buissnes-summary)
+- [Business Summary](#business-summary)
     - [Event Modeling](/docs/event-modeling.md)
 - [Technical Summary](#technical-summary)
-- [Buissnes Deliverables](#buissnes-deliverables)
+- [Business Deliverables](#business-deliverables)
 - [Bonus points](#bonus-points)
     - [Application logging](/docs/bonus-points.md#application-logging)
     - [Application metrics](/docs/bonus-points.md#application-metrics)
@@ -23,7 +23,7 @@
 - [Coding commentary](#coding-commentary)
 - [My TODO list](/docs/todo-list.md)
 
-## Buissnes Summary 
+## Business Summary 
 
 Key actors of this service:
 
@@ -79,7 +79,7 @@ Technology stack:
  Load `postman` collection from `./postman/Payments.postman_collection.json`
     1. There is just `POST` method, as results of `POST` returns a link to the get method.
 
-## Buissnes Deliverables
+## Business Deliverables
 
 1. A merchant should be able to process a payment through the payment gateway and receive either a
    successful or unsuccessful response
