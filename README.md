@@ -2,7 +2,7 @@
 
 [![CircleCI](https://circleci.com/gh/pawelsawicz/checkout-payment-gateway.svg?style=svg)](https://circleci.com/gh/pawelsawicz/checkout-payment-gateway)
 
-## Table of the content
+## Table of the contents
 
 - [Assertion of this submission](#assertion)
 - [Business Summary](#business-summary)
