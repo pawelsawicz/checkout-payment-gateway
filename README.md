@@ -2,6 +2,26 @@
 
 [![CircleCI](https://circleci.com/gh/pawelsawicz/checkout-payment-gateway.svg?style=svg)](https://circleci.com/gh/pawelsawicz/checkout-payment-gateway)
 
+## Table of the content
+
+- [Buissnes Summary](#buissnes-summary)
+    - [Event Modeling](/docs/event-modeling.md)
+- [Technical Summary](#technical-summary)
+- [Buissnes Deliverables](#buissnes-deliverables)
+- [Bonus points](#bonus-points)
+    - [Application logging](/docs/bonus-points.md#application-logging)
+    - [Application metrics](/docs/bonus-points.md#application-metrics)
+    - [Containerization](/docs/bonus-points.md#containerization)
+    - [Authentication](/docs/bonus-points.md#authentication)
+    - [API client](/docs/bonus-points.md#api-client)
+    - [Build script / CI](/docs/bonus-points.md#build-script--ci)
+    - [Performance testing](/docs/bonus-points.md#performance-testing)
+    - [Encryption](/docs/bonus-points.md#encryption)
+    - [Data storage](/docs/bonus-points.md#data-storage)
+- [Infrastructure Architecture](#infrasturcture-architecture-commentary)
+- [Coding commentary](#coding-commentary)
+- [My TODO list](/docs/todo-list.md)
+
 ## Buissnes Summary
 
 Key actors of this service:
@@ -30,14 +50,6 @@ Technology stack:
  - API Framework : WebAPI ASP.NET Core
  - CQRS/ES Framework: EventFlow
  - Persistance storage: In-memory
-
-## Table of the content
-
-- [Buissnes Deliverables](#buissnes-deliverables)
-    - [Event Modeling](/docs/event-modeling.md)
-- Commentary to bonus points 
-- [Infrastructure Architecture](#infrasturcture-diagram)
-- [My TODO list](/docs/todo-list.md)
 
 ## Buissnes Deliverables
 
