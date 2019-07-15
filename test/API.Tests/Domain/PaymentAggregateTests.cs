@@ -10,7 +10,7 @@ namespace API.Tests.Domain
     {
 
         [Fact]
-        public void GivenBankPaymentResponseWhenSetPaymentSuccessfulThenEventIsEmitted()
+        public void GivenInitialStateWhenSetApprovedPaymentThenEventIsEmitted()
         {
             // arrange
             var paymentAggregate = new PaymentAggregate(PaymentId.New);

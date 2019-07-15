@@ -18,7 +18,7 @@ namespace API.Tests.Domain
     public class PaymentInformationTests
     {
         [Fact]
-        public async Task GivenPaymentSucceededThenPaymentInformationReadModelCreated()
+        public async Task GivenPaymentSucceededThenPaymentInformationReadModelIsCreated()
         {
             // arrange
             using (var resolver = EventFlowOptions.New
@@ -60,7 +60,7 @@ namespace API.Tests.Domain
         }
         
         [Fact]
-        public async Task GivenPaymentFailedThenPaymentInformationReadModelCreated()
+        public async Task GivenPaymentFailedThenPaymentInformationReadModelIsCreated()
         {
             // arrange
             using (var resolver = EventFlowOptions.New
