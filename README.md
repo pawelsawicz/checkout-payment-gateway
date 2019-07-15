@@ -1,23 +1,71 @@
 # checkout-payment-gateway
 
+[![CircleCI](https://circleci.com/gh/pawelsawicz/checkout-payment-gateway.svg?style=svg)](https://circleci.com/gh/pawelsawicz/checkout-payment-gateway)
+
+## Buissnes Summary
+
+Key actors of this service:
+
+1. Merchant
+2. Acquiring Bank
+
+This service is responsible for:
+
+1. Reciving a payment from merchant's customer and forwarding the payment to a acquiring bank.
+2. Providing information about a payment for a merchant
+
+![service-overview](/docs/service-overview.jpg)
+
+This service is currently in development, therefore acquiring bank has been [mocked out](https://github.com/pawelsawicz/checkout-payment-gateway/tree/master/src/API/Services/FakeAcquiringBankImpls). 
+I did not make any assumptions about transportation protocol between this service and a bank. 
+There exists an [interface](https://github.com/pawelsawicz/checkout-payment-gateway/blob/master/src/API/Services/IAcquiringBankService.cs), that expose contract between this service and a acquiring bank. 
+At this stage of development no further assumptions should be made.
+
+## Technical Summary
+
+**Main assumption**, I didn't try to reinvent wheel while building this project. I used off the 
+shelf solutions whenever possible.
+
+Technology stack:
+ - API Framework : WebAPI ASP.NET Core
+ - CQRS/ES Framework: EventFlow
+ - Persistance storage: In-memory
+
 ## Table of the content
 
 - [Buissnes Deliverables](#buissnes-deliverables)
     - [Event Modeling](/docs/event-modeling.md)
 - Commentary to bonus points 
 - [Infrastructure Architecture](#infrasturcture-diagram)
+- [My TODO list](/docs/todo-list.md)
 
 ## Buissnes Deliverables
 
-1. Merchant should be able to process a payment through the payment gateway 
-and receive either a successful or successful response
-    1. Simulation of the bank component. Component should be able to be switched for 
-    a real bank once we move into production
+1. A merchant should be able to process a payment through the payment gateway and receive either a
+   successful or unsuccessful response
 2. A merchant should be able to retrieve the details of a previously made payment
 
-I modelled two deliverables using event modeling.
+- [x] Build an API that allows a merchant:
+    - [x] To process a payment through your payment gateway.
+    - [x] To retrieve details of a previously made payment.
 
-### Coding assumtions, and some commentary.
+- [x] Build a simulator to mock the responses from the bank to test the API from your first deliverable.
+
+## Bonus points
+
+Extra mile bonus points (please see the [commentary](/docs/bonus-points.md))
+
+- [x] [Application logging](/docs/bonus-points.md#application-logging)
+- [x] [Application metrics](/docs/bonus-points.md#application-metrics)
+- [x] [Containerization](/docs/bonus-points.md#containerization)
+- [ ] [Authentication](/docs/bonus-points.md#authentication)
+- [ ] [API client](/docs/bonus-points.md#api-client)
+- [x] [Build script / CI](/docs/bonus-points.md#build-script--ci)
+- [x] [Performance testing](/docs/bonus-points.md#performance-testing)
+- [ ] [Encryption](/docs/bonus-points.md#encryption)
+- [ ] [Data storage](/docs/bonus-points.md#data-storage)
+
+## Coding commentary
 
 **Main assumption**, I didn't try to reinvent wheel here, I used off the 
 shelf solutions whenever possible, this includes:
@@ -32,98 +80,11 @@ shelf solutions whenever possible, this includes:
 - What would be the next step for the platform
 - Searching for the pitfalls
 
-Technology stack:
- - API Framework : WebAPI ASP.NET Core
- - CQRS/ES Framework: EventFlow
- - Persistance storage: In-memory
- - aaaaaa
 
-## Bonus points
+## Infrasturcture architecture commentary
 
-Extra mile bonus points (please see the [commentary](/docs/bonus-points.md))
+![startup-1](/docs/startup-solution.jpg)
 
-- [ ] [Application logging](/docs/bonus-points.md#application-logging)
-- [ ] [Application metrics](/docs/bonus-points.md#application-metrics)
-- [ ] [Containerization](/docs/bonus-points.md#containerization)
-- [ ] [Authentication](/docs/bonus-points.md#authentication)
-- [ ] [API client](/docs/bonus-points.md#api-client)
-- [ ] [Build script / CI](/docs/bonus-points.md#build-script--ci)
-- [ ] [Performance testing](/docs/bonus-points.md#performance-testing)
-- [ ] [Encryption](/docs/bonus-points.md#encryption)
-- [ ] [Data storage](/docs/bonus-points.md#data-storage)
+![startup-1](/docs/mature-startup-solution.jpg)
 
-
-## TODO Platform / Infrastructure work
-
-- [x] Bootstrap projects `api`, `api.tests`
-- [ ] Bootstraping API
-    - [ ] Add ASP.NET Framework
-        - [ ] Drive Kestrel configuration via config file
-        - [ ] IoC (?)
-    - [x] Add Serilog
-        - [x] Add Console sink
-    - [x] Add prometheus.net
-        - [x] Add basic HTTP metrics
-        - [ ] Consider: Add business level metrics
-    - [ ] Add Basic authorisation
-    - [ ] Enforce HTTPS
-- [x] Add performance testing project
-    - [ ] Add performance test for payments - POST
-    - [ ] Add performance test for payments - GET
-- [ ] Add event store / database (?)
-- [ ] Add docker support
-    - [x] Add dockerfile
-    - [ ] Add docker-compose
-        - [x] Create docker-compose just for API
-        - [x] Create docker-compose with monitoring tools
-          - [x] Link containers together
-          - [x] Setup config for `prom` and `grafana`
-        - [ ] Create docker-compose with performance tests
-            - [ ] Link it together
-            - [ ] Mount tests into container & run tests
-    - [ ] Change type of the main from `void` to `int`, 
-    better visibility over types of shutdown
-- [x] Add CI configuration (Circle CI)
-    - [x] Create Makefile (build script)
-    
-### Improvments
-
-- [ ] Add correlation id
-- [ ] Add File sink for Serilog
-- [ ] Extract test coverage / failure for tests
-
-### Documentation work
-
-- [x] Create infrastructure diagram
-- [ ] Add screenshoot of the CI
-
-### Coding
-
-- [x] Introduce Payment Aggregate
-    - [x] Payment Status
-- [x] Introduce Pay Command
-    - [x] Acquiring Bank Payment Request
-- [x] Introduce PaymentSucceeded Event
-    - [x] Payment Status
-- [x] Introduce PaymentFailed Event
-    - [x] Payment Status
-- [ ] Introduce Payment Information Read Model
-    - [ ] Masked card number
-    - [x] Card details
-        - Without CVV as in [checkout](https://docs.checkout.com/docs/full-card-details-api)
-    - [x] Payment details
-    - [x] Status code for the payment
-    - [x] Links
-- [x] Create switch for live Acquiring Bank component
-
-### Test coverage
-
-- [ ] Tests for Payment Aggregate state changes
-- [ ] Tests for Pay Command Handler
-- [ ] Tests for Payment Information Read Model
-- [ ] Test for controller
-
-
-### Infrasturcture diagram
-
-![Infrasturcture diagram](/docs/infrastructure-architecture.png)
+![startup-1](/docs/mature-company-solution.jpg)
