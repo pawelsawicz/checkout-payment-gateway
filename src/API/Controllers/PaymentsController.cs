@@ -89,15 +89,13 @@ namespace API.Controllers
         }
 
         private AcquiringBankPaymentRequest ToBankPaymentRequest(PaymentRequest paymentRequest) =>
-            new AcquiringBankPaymentRequest
-            {
-                CardNumber = paymentRequest.CardNumber,
-                ExpiryDate = paymentRequest.ExpiryDate,
-                ExpiryMonth = paymentRequest.ExpiryMonth,
-                Name = paymentRequest.Name,
-                Amount = paymentRequest.Amount,
-                Cvv = paymentRequest.Cvv,
-                CurrencyCode = paymentRequest.CurrencyCode
-            };
+            new AcquiringBankPaymentRequest(
+                paymentRequest.CardNumber,
+                paymentRequest.ExpiryMonth,
+                paymentRequest.ExpiryDate,
+                paymentRequest.Name,
+                paymentRequest.Amount,
+                paymentRequest.CurrencyCode,
+                paymentRequest.Cvv);
     }
 }

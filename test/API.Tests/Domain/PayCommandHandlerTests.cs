@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,6 +6,7 @@ using API.Domain.Commands;
 using API.Domain.Events;
 using API.Services;
 using API.Services.FakeAcquiringBankImpls;
+using CreditCardValidator;
 using Xunit;
 
 namespace API.Tests.Domain
@@ -47,15 +47,14 @@ namespace API.Tests.Domain
                 .Single(x => x.AggregateEvent.GetType() == typeof(PaymentFailed)));
         }
 
-        private AcquiringBankPaymentRequest CreateRequest() => new AcquiringBankPaymentRequest
-        {
-            CardNumber = Guid.NewGuid().ToString(),
-            ExpiryMonth = 8,
-            ExpiryDate = 2019,
-            Amount = 2000,
-            Name = "Alfred Tarski",
-            CurrencyCode = "USD",
-            Cvv = 966
-        };
+        private AcquiringBankPaymentRequest CreateRequest() => new AcquiringBankPaymentRequest(
+            CreditCardFactory.RandomCardNumber(CardIssuer.Visa),
+            8,
+            2019,
+            "Alfred Tarski",
+            2000,
+            "USD",
+            966
+        );
     }
 }

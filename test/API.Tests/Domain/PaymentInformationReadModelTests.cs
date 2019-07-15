@@ -101,16 +101,15 @@ namespace API.Tests.Domain
             }
         }
 
-        private AcquiringBankPaymentRequest CreateRequest() => new AcquiringBankPaymentRequest
-        {
-            CardNumber = CreditCardFactory.RandomCardNumber(CardIssuer.Visa),
-            ExpiryMonth = 8,
-            ExpiryDate = 2019,
-            Amount = 2000,
-            Name = "Alfred Tarski",
-            CurrencyCode = "USD",
-            Cvv = 966
-        };
+        private AcquiringBankPaymentRequest CreateRequest() => new AcquiringBankPaymentRequest(
+            CreditCardFactory.RandomCardNumber(CardIssuer.Visa),
+            8,
+            2019,
+            "Alfred Tarski",
+            2000,
+            "USD",
+            966
+        );
         
         private string Mask(string cardNumber)
         {

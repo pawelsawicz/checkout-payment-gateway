@@ -9,11 +9,8 @@ namespace API.Services.FakeAcquiringBankImpls
         
         public Task<AcquiringBankPaymentResponse> ProcessPayment(AcquiringBankPaymentRequest acquiringBankPaymentRequest)
         {
-            return Task.FromResult(new AcquiringBankPaymentResponse
-            {
-                BankIdentifier = Guid.NewGuid().ToString(),
-                PaymentStatus = ReturnedStatusCode
-            });
+            return Task.FromResult(
+                new AcquiringBankPaymentResponse(Guid.NewGuid().ToString(), ReturnedStatusCode));
         }
     }
 }
