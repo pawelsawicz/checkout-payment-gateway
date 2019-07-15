@@ -74,8 +74,6 @@ namespace API.Controllers
                 Logger.Error("There was unexpected error while handling your request", ex);
                 return StatusCode(500);
             }
-
-            //Logger.Information($"Exiting {nameof(PaymentsController)} - {nameof(Post)}");
         }
 
         private AcquiringBankPaymentRequest ToBankPaymentRequest(PaymentRequest paymentRequest) =>

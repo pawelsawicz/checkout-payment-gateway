@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace API.Services.FakeAcquiringBankImpls
 {
-    public class FakeAcquiringBankServiceWithFailedResponse : IAcquiringBankService
+    public sealed class FakeAcquiringBankServiceWithFailedResponse : IAcquiringBankService
     {
         public Task<AcquiringBankPaymentResponse> ProcessPayment(AcquiringBankPaymentRequest acquiringBankPaymentRequest)
         {

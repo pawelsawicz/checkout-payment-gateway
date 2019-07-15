@@ -17,7 +17,7 @@ namespace API.Tests.Domain
         }
         
         [Fact]
-        public void GivenMaskedCardNumberWhenMaskThenItIsIdempotent()
+        public void MaskMethodIsIdempotent()
         {
             var paymentStatus = new PaymentStatus
             {

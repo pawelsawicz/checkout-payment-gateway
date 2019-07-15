@@ -29,18 +29,18 @@ namespace API.Models
                 .NotEmpty()
                 .GreaterThan(0);
 
-            // double check what validation
-            // can be put in place
             RuleFor(r => r.CurrencyCode)
+                .Length(3)
                 .NotEmpty();
 
-            // According to https://medium.com/hootsuite-engineering/a-comprehensive-guide-to-validating-and-formatting-credit-cards-b9fa63ec7863
+            // According to
+            // https://medium.com/hootsuite-engineering/a-comprehensive-guide-to-validating-and-formatting-credit-cards-b9fa63ec7863
             // Most cards have 3 digits, and some 4.
             RuleFor(r => r.Cvv)
                 .InclusiveBetween(100, 9999);
         }
 
-        private class CardNumberValidator : PropertyValidator
+        private sealed class CardNumberValidator : PropertyValidator
         {
             public CardNumberValidator() : 
                 base("Card Number is not valid")

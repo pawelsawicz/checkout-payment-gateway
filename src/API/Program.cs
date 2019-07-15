@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Net;
-using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 
@@ -53,20 +50,6 @@ namespace API
             }
 
             return 0;
-        }
-
-        private static Action<KestrelServerOptions> KestrelOptions()
-        {
-            return o =>
-            {
-                o.Listen(
-                    IPAddress.Any,
-                    443,
-                    options =>
-                    {
-                        options.UseHttps(new X509Certificate2(@"./certs/tls.pfx", "somepassword"));
-                    });
-            };
         }
     }
 }
