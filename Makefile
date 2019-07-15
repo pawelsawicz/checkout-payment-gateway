@@ -40,6 +40,17 @@ compose-with-monitoring-clean:
 compose-with-monitoring: compose-with-monitoring-clean
 	docker-compose -f docker-compose-with-monitoring.yml up --force-recreate -d
 	
+## Docker compose development - prometheus + grafana + performance tests
+
+build-performance-test-container:
+	docker build -t load-testing -f ./performance-tests/docker/Dockerfile ./performance-tests/docker
+
+compose-with-performance-clean:
+	docker-compose -f docker-compose-with-performance.yml down -v --remove-orphans
+
+compose-with-performance: compose-with-performance-clean
+	docker-compose -f docker-compose-with-performance.yml up --force-recreate -d
+	
 ## Performance tests
 
 perf-payments-get:
@@ -57,8 +68,7 @@ run-tests:
 	dotnet test
 	
 ## Assert my submission using this command
-assert-submission: build compose-with-monitoring
-	k6 run ./performance-tests/payments-post-201.js --max=10 -i=10000 --insecure-skip-tls-verify && \
-	k6 run ./performance-tests/payments-post-400.js --max=10 -i=10000 --insecure-skip-tls-verify && \
-	k6 run ./performance-tests/payments-get-200.js --max=1 -i=1 --insecure-skip-tls-verify
+assert-submission: compose-with-performance
+
+assert-submission-clean: compose-with-performance-clean
 	  

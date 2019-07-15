@@ -40,9 +40,34 @@ services:
     networks:
       - back-tier
     ports:
-      - 3000:3000
+      - 3000:3000    
     
-  performance-tests:
+  performance-tests-1:
     image: loadimpact/k6
     volumes:
       - ./performance-tests/:/etc/performance-tests
+    depends_on:
+      - grafana
+    networks:
+      - back-tier
+    command: 'run /etc/performance-tests/docker/payments-post-201.js --vus 3 --duration 1m --insecure-skip-tls-verify'
+    
+  performance-tests-2:
+    image: loadimpact/k6
+    volumes:
+      - ./performance-tests/:/etc/performance-tests
+    depends_on:
+      - grafana
+    networks:
+      - back-tier
+    command: 'run /etc/performance-tests/docker/payments-post-200.js --vus 3 --duration 1m --insecure-skip-tls-verify'
+    
+  performance-tests-3:
+    image: loadimpact/k6
+    volumes:
+      - ./performance-tests/:/etc/performance-tests
+    depends_on:
+      - grafana
+    networks:
+      - back-tier    
+    command: 'run /etc/performance-tests/docker/payments-post-400.js --vus 3 --duration 1m --insecure-skip-tls-verify'
