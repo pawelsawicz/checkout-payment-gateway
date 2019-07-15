@@ -15,7 +15,7 @@ export default function() {
         }
     );
     var params =  { headers: { "Content-Type": "application/json" } }
-    http.post(url, payload, params);
-    
-    http.get(http.url`http://localhost:5000/api/payments/${id}`);    
+    var response = http.post(url, payload, params);
+
+    http.get(http.url`http://api:80/api/payments/${JSON.parse(response.body).paymentId}`); 
 };

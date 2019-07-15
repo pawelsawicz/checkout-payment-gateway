@@ -54,7 +54,7 @@ compose-with-performance: compose-with-performance-clean
 ## Performance tests
 
 perf-payments-get:
-	k6 run ./performance-tests/payments-get.js --max=1 -i=1 --insecure-skip-tls-verify
+	k6 run ./performance-tests/payments-get-200.js --max=1 -i=1 --insecure-skip-tls-verify
 	
 perf-payments-post:
 	k6 run ./performance-tests/payments-post-201.js --max=10 -i=10000 --insecure-skip-tls-verify

@@ -50,7 +50,7 @@ services:
       - grafana
     networks:
       - back-tier
-    command: 'run /etc/performance-tests/docker/payments-post-201.js --vus 3 --duration 1m --insecure-skip-tls-verify'
+    command: 'run /etc/performance-tests/docker/payments-post-201.js --vus 3 --duration 2m --insecure-skip-tls-verify'
     
   performance-tests-2:
     image: loadimpact/k6
@@ -60,7 +60,7 @@ services:
       - grafana
     networks:
       - back-tier
-    command: 'run /etc/performance-tests/docker/payments-post-200.js --vus 3 --duration 1m --insecure-skip-tls-verify'
+    command: 'run /etc/performance-tests/docker/payments-get-200.js --vus 3 --duration 2m --insecure-skip-tls-verify'
     
   performance-tests-3:
     image: loadimpact/k6
@@ -70,4 +70,4 @@ services:
       - grafana
     networks:
       - back-tier    
-    command: 'run /etc/performance-tests/docker/payments-post-400.js --vus 3 --duration 1m --insecure-skip-tls-verify'
+    command: 'run /etc/performance-tests/docker/payments-post-400.js --vus 1 --duration 1m --insecure-skip-tls-verify'
