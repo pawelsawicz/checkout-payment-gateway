@@ -35,6 +35,11 @@ namespace API.Controllers
         {
             Logger.Information($"Entering {nameof(PaymentsController)} - {nameof(Post)}");
 
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            
             var paymentId = PaymentId.New;
             var command = new PayCommand(paymentId, ToBankPaymentRequest(request));
 
@@ -82,6 +87,7 @@ namespace API.Controllers
                 CardNumber = paymentRequest.CardNumber,
                 ExpiryDate = paymentRequest.ExpiryDate,
                 ExpiryMonth = paymentRequest.ExpiryMonth,
+                Name = paymentRequest.Name,
                 Amount = paymentRequest.Amount,
                 Cvv = paymentRequest.Cvv,
                 CurrencyCode = paymentRequest.CurrencyCode

@@ -4,7 +4,7 @@ using CreditCardValidator;
 using Shouldly;
 using Xunit;
 
-namespace API.Tests.Controllers
+namespace API.Tests.Validators
 {
     public class PaymentRequestValidatorTests
     {
