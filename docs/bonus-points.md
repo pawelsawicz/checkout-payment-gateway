@@ -2,44 +2,60 @@
 
 ## Application logging
 
-I used `Serilog`.
+I used `Serilog`. It supports structured logging, which was my main reason for chosing this library.
+
+If I would have more time then:
+
+- Introduce Correlation Id. It's very helpful concept for cross referencing 
+requests between multiple services
 
 ## Application metrics
 
-### What I have done
-
-I used `Prometheus` for collecting the data from the service, 
+I used `Prometheus` for collecting the metrics from the service, 
 and `Grafana` for analytics and monitoring.
 
 There is `prometheus-net` library that export basic `HTTP` 
 metrics of the service.
 
-### What I would have done
+- Grafana - [http://localhost:3000](http://localhost:3000)
+- Prometheus [http://localhost:9090](http://localhost:9090)
 
-- Add buisness level metrics
-- Add alerting and integration with i.e `pagerduty`
+If I would have more time then:
 
+- Add business level metrics (i.e number of approved/failed payments)
+- Add alerting integration with i.e `pagerduty`
 
 ## Containerization
 
 I used `docker` to define a container image which contains the service.
-I used `docker-compose` for development purpose. 
-This configuration contain all nessesary tools to develop and maintain the application. 
-User doesn't have to provision anything else apart from having `docker`.
+Additionally I introduced `docker-compose` to spin up development environment. 
+This configuration contain all necessary tools to develop and maintain the application. 
+User does not have to provision anything else apart from having `docker` installed.
 
 ## Authentication
 
-N/A
+I have not completed this.
+
+If I would have more time then:
+- Introduce Basic Auth (if it's startup)
+- Introduce OAuth (if it's more mature company)
 
 ## API client
 
-N/A
+I have not completed this.
+
+Personally I am against creating `API clients`,
+ unless organisation is willing to create separate team (Developers Relationship) 
+ which will maintain public documentation and `SDKs`. Maintenance of those is significant.
 
 ## Build script / CI
 
-I used `Makefile` to define build steps. 
-I have integrated repository with `circle ci` that runs CI based on `Makefile`
+I used `Makefile` to define build steps, then I have integrated repository with `circle ci` 
+that runs CI based on the instructions from `Makefile`
 
+If I would have more time then:
+- After successful master build, upload crated image to a docker artifactory.
+- Deployment script, maybe Kubernetes ?
 
 ## Performance testing
 
@@ -48,15 +64,27 @@ I used `k6` for performance testing.
 I have created two tests:
    - POST /payments/
    - GET /payments/{id}
+   
+Once you run them, you can view stats in the console, or just go to grafana - http://localhost:3000
+
 
 ## Encryption
 
-N/A
+I have not completed this.
 
-### What I would have done
+I am just going to leave a citation:
 
-HTTP message encryption.
+> When communicating over the Internet using the HTTP protocol, it can be desirable for a server or client to authenticate the sender of a particular message. It can also be desirable to ensure that the message was not tampered with during transit. This document describes a way for servers and clients to simultaneously add authentication and message integrity to HTTP messages by using a digital signature.
+
+Via: https://tools.ietf.org/id/draft-cavage-http-signatures-08.html
 
 ## Data storage
 
-I used `EventStore` as it's natural tool for `CQRS/ES`
+I have not completed this.
+
+Current solution works in-memory, but EventFlow support 
+easy integration with major database products: i.e `MSSQL`.
+
+For the initial implementation I would use `MSSQL` or any other `RDBMS`, as it's well known technology. 
+If organisation is large and there are problems with `reads`, `writes` (Please see event modeling section),
+ then 

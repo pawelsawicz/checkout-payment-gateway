@@ -4,6 +4,7 @@
 
 ## Table of the content
 
+- [Assertion of this submission](#assertion)
 - [Buissnes Summary](#buissnes-summary)
     - [Event Modeling](/docs/event-modeling.md)
 - [Technical Summary](#technical-summary)
@@ -47,9 +48,36 @@ At this stage of development no further assumptions should be made.
 shelf solutions whenever possible.
 
 Technology stack:
- - API Framework : WebAPI ASP.NET Core
+ - API Framework : ASP.NET Core
  - CQRS/ES Framework: EventFlow
  - Persistance storage: In-memory
+ - Metrics collector: Prometheus
+ - Bunch of libs.
+ - Docker
+ 
+ ### Assertion
+ 
+ #### What I have done:
+ 
+ - Exploring domain
+ - Modeling domain via [event modeling](/docs/event-modeling.md)
+ - Translate modelled domain into code
+ - What would be the next step for the platform
+ - Searching for the pitfalls
+ - Create infrastructure architecture
+ 
+ In order to run and assert my submission:
+ 
+ 1. Clone this repository
+ 2. Make sure you have `docker` installed on your box
+ 3. Run `make assert-submission`
+    1. builds & tests solution
+    2. builds docker image
+    3. spin up `api`, `prometheus`, `grafana` containers
+    4. runs performance tests `post-201`, `post-400` and `get-200`
+ 4. If you would like to send HTTP request manually, then `make run-locally`. 
+ Load `postman` collection from `./postman/Payments.postman_collection.json`
+    1. There is just `POST` method, as results of `POST` returns a link to the get method.
 
 ## Buissnes Deliverables
 
@@ -76,22 +104,6 @@ Extra mile bonus points (please see the [commentary](/docs/bonus-points.md))
 - [x] [Performance testing](/docs/bonus-points.md#performance-testing)
 - [ ] [Encryption](/docs/bonus-points.md#encryption)
 - [ ] [Data storage](/docs/bonus-points.md#data-storage)
-
-## Coding commentary
-
-**Main assumption**, I didn't try to reinvent wheel here, I used off the 
-shelf solutions whenever possible, this includes:
-
-- CQRS/ES framework
-- Validation 
-
-**What I have done**:
-- Exploring domain
-- Modeling domain via event modeling
-- Translate modelled domain into code
-- What would be the next step for the platform
-- Searching for the pitfalls
-
 
 ## Infrasturcture architecture commentary
 

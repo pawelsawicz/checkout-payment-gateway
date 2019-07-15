@@ -1,0 +1,40 @@
+{
+	"info": {
+		"_postman_id": "b3ace58b-b3fe-41b4-9b50-5630a51ac719",
+		"name": "Payments",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:5000/api/payments",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"CardNumber\": \"4702111549984688\",\n    \"ExpiryMonth\": 6,\n    \"ExpiryDate\": 2019,\n    \"Name\": \"aaaaa\",\n    \"Amount\": 2000,\n    \"CurrencyCode\": \"USD\",\n    \"Cvv\": 443\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/payments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"payments"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
