@@ -83,7 +83,7 @@ Technology stack:
  Load `postman` collection from `./postman/Payments.postman_collection.json`
     1. There is just `POST` method, as results of `POST` returns a link to the get method.
 
-Once you run `make assert-submission`. Following names will be aviable for you:
+Once you run `make assert-submission`. Following names will be available for you:
 
 - API - http://localhost:5000/
 - Prometheus - http://localhost:9090
