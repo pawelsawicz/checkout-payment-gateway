@@ -73,7 +73,8 @@ Technology stack:
  
  1. Clone this repository
  2. Make sure you have `docker` installed on your box
- 3. Run `make assert-submission`
+ 3. Run `make build`
+ 4. Run `make assert-submission`
     1. builds & tests solution
     2. builds docker image
     3. spin up `api`, `prometheus`, `grafana` containers
