@@ -20,5 +20,4 @@ jobs:
              type: docker-image
              source: {repository: mcr.microsoft.com/dotnet/core/sdk}           
            run:
-             path: apt-get
-             args: [update]
+             path: checkout-payment-gateway/.concourse-ci/prepare-and-build.sh
