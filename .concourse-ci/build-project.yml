@@ -1,0 +1,24 @@
+---
+resources:
+  - name: checkout-payment-gateway
+    type: git
+    source:
+      uri: https://github.com/pawelsawicz/checkout-payment-gateway.git
+      branch: poc-concourse-ci
+jobs:
+  - name: update
+    public: true
+    serial: true
+    plan:
+      - get: checkout-payment-gateway
+      - task: check-directory
+        config:
+           platform: linux
+           inputs:
+           - name: checkout-payment-gateway
+           image_resource:
+             type: docker-image
+             source: {repository: mcr.microsoft.com/dotnet/core/sdk}           
+           run:
+             path: apt-get
+             args: [update]
